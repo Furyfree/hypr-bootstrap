@@ -57,7 +57,20 @@ sudo pacman -S openssh
 sudo systemctl enable --now sshd
 ```
 
-## 8. Setup FDE systemd-cryptenroll for auto unlock
+## 8. Install Paru
+```
+sudo pacman -S --needed base-devel
+git clone https://aur.archlinux.org/paru.git
+cd paru
+makepkg -si
+```
+
+## 9. Install Limine helpers
+```
+paru -S --noconfirm --needed limine-snapper-sync limine-mkinitcpio-hook
+```
+
+## 9. Setup FDE systemd-cryptenroll for auto unlock
 
 Change `/etc/mkinitcpio.conf`:
 

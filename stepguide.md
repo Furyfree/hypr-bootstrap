@@ -105,3 +105,51 @@ Now enroll with correct disk and write FDE password:
 ```
 sudo systemd-cryptenroll /dev/nvme0n1p2 --tpm2-device=auto
 ```
+
+
+
+
+
+New luks steps:
+```
+# Check TPM exists
+ls -l /dev/tpm* /sys/class/tpm/ 2>/dev/null
+
+# Check LUKS version
+sudo cryptsetup luksDump /dev/nvme0n1p2 | head
+
+# Get LUKS ID
+sudo cryptsetup luksUUID /dev/nvme0n1p2
+
+# Add LUKS ID to crypttab
+sudo EDITOR=nano sudoedit /etc/crypttab.initramfs
+# Insert
+root UUID=<LUKSID> - tpm2-device=auto
+
+# Edit `/etc/mkinitcpio.conf` from udev to systemd
+sudo nano /etc/mkinitcpio.conf
+
+# From this
+HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck)
+
+# To this and add sd-btrfs-overlayfs to the line so it looks like this beneath
+HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole sd-encrypt block sd-btrfs-overlayfs filesystems fsck)
+
+# Make boot entry correct always
+sudo nano /etc/kernel/cmdline
+# add this
+root=/dev/mapper/root rw rootfstype=btrfs rootflags=subvol=@ zswap.enabled=0
+
+# Rebuild initramfs again
+sudo limine-update
+
+# Create recovery key and save it
+sudo systemd-cryptenroll /dev/nvme0n1p2 --recovery-key
+
+# Make auto unlock encryption
+sudo systemd-cryptenroll /dev/nvme0n1p2 --tpm2-device=auto
+```
+
+
+
+ivdlnike-kktiunet-felkdnue-glfhernn-flljfceg-cvludjtu-ibfbbufh-tighvuie

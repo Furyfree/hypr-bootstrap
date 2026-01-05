@@ -1,0 +1,158 @@
+# ====================
+# Hyprland & Wayland
+# ====================
+hyprland
+xdg-desktop-portal-hyprland
+hypridle
+hyprlock
+hyprpicker
+hyprsunset
+
+# ====================
+# Login Manager
+# ====================
+greetd
+greetd-regreet
+
+# ====================
+# Bar, Launcher & Notifications
+# ====================
+waybar
+walker
+swaync
+
+# ====================
+# Theming
+# ====================
+papirus-icon-theme
+apple-fonts
+apple_cursor
+ttf-jetbrains-mono-nerd
+matugen
+awww-git
+
+# ====================
+# GTK & Qt
+# ====================
+qt5-wayland
+qt6-wayland
+nwg-look
+kvantum
+kvantum-qt5
+
+# ====================
+# Authentication
+# ====================
+polkit-gnome
+1password
+1password-cli
+
+# ====================
+# Terminal & Shell
+# ====================
+starship
+zsh
+zinit
+zoxide
+fzf
+
+# ====================
+# CLI Tools
+# ====================
+btop
+fastfetch
+neovim
+vim
+yazi
+lazygit
+lazydocker
+fd
+duf
+dust
+ripgrep
+bat
+tldr
+curlie
+httpie
+bandwhich
+github-cli
+
+# ====================
+# File Management
+# ====================
+thunar
+udiskie
+
+# ====================
+# Editors & IDEs
+# ====================
+cursor-bin
+zed
+code
+code-marketplace
+chaotic-aur/jetbrains-toolbox
+
+# ====================
+# Browsers
+# ====================
+chaotic-aur/helium-browser-bin
+chaotic-aur/chromium-widevine
+
+# ====================
+# Communication
+# ====================
+discord
+signal-desktop
+
+# ====================
+# Media
+# ====================
+mpv
+imv
+spotify-launcher
+obs-studio
+kdenlive
+pinta
+gimp
+
+# ====================
+# Productivity
+# ====================
+obsidian
+drawio-desktop
+baobab
+
+# ====================
+# Development
+# ====================
+docker
+docker-compose
+
+# ====================
+# Network & Bluetooth
+# ====================
+NetworkManager
+iwd
+impala
+wiremix
+bluetui
+
+# ====================
+# System
+# ====================
+xdg-user-dirs
+xdg-utils
+pacman-contrib
+limine-mkinitcpio-hook
+limine-snapper-sync
+
+# ====================
+# Gaming
+# ====================
+steam
+chaotic-aur/faugus-launcher
+chaotic-aur/minecraft-launcher
+# Battlenet
+# World of Warcraft
+# WagoApp
+# Wowup

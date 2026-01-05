@@ -132,6 +132,7 @@ pkill launcher || $launcher
 - hyprshutdown (maybe instead of Wlogout as hyprshutdown is not stable)
 - hyprtoolkit (maybe)
 - pacman-contrib
+- swaync
 
 ## Wallpapers
 

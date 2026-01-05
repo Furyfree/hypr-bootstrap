@@ -1,0 +1,25 @@
+# regreet.toml
+
+[background]
+path = "/usr/share/backgrounds/bc1.png"
+fit = "Contain"
+
+[GTK]
+application_prefer_dark_theme = true
+cursor_theme_name = "macOS"
+cursor_blink = true
+font_name = "SF Pro Display 16"
+icon_theme_name = "Papirus-Dark"
+
+[commands]
+reboot = ["systemctl", "reboot"]
+poweroff = ["systemctl", "poweroff"]
+
+[appearance]
+greeting_msg = "Welcome back!"
+
+[widget.clock]
+format = "%a %H:%M"
+resolution = "500ms"
+timezone = "Europe/Copenhagen"
+label_width = 150

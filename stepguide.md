@@ -59,6 +59,8 @@ sudo systemctl enable --now sshd
 
 ## 8. Install Paru
 ```
+sudo pacman -S rustup
+rustup default stable
 sudo pacman -S --needed base-devel
 git clone https://aur.archlinux.org/paru.git
 cd paru
@@ -70,46 +72,7 @@ makepkg -si
 paru -S --noconfirm --needed limine-snapper-sync limine-mkinitcpio-hook
 ```
 
-## 9. Setup FDE systemd-cryptenroll for auto unlock
-
-Change `/etc/mkinitcpio.conf`:
-
-```
-##   This will create a systemd based initramfs which loads an encrypted root filesystem.
-#    HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck)
-#
-##   NOTE: If you have /usr on a separate partition, you MUST include the
-#    usr and fsck hooks.
-HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck)
-```
-
-To
-
-```
-##   This will create a systemd based initramfs which loads an encrypted root filesystem.
-HOOKS=(base systemd autodetect microcode modconf kms keyboard sd-vconsole sd-encrypt block filesystems fsck)
-#
-##   NOTE: If you have /usr on a separate partition, you MUST include the
-#    usr and fsck hooks.
-#    HOOKS=(base udev autodetect microcode modconf kms keyboard keymap consolefont block encrypt filesystems fsck)
-```
-
-and regenerate initramfs:
-
-```
-sudo mkinitcpio -P
-```
-
-Now enroll with correct disk and write FDE password:
-
-```
-sudo systemd-cryptenroll /dev/nvme0n1p2 --tpm2-device=auto
-```
-
-
-
-
-
+## 10. Setup LUKS auto unlock
 New luks steps:
 ```
 # Check TPM exists

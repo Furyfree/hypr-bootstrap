@@ -116,3 +116,47 @@ sudo systemd-cryptenroll /dev/nvme0n1p2 --tpm2-device=auto
 
 
 ivdlnike-kktiunet-felkdnue-glfhernn-flljfceg-cvludjtu-ibfbbufh-tighvuie
+
+
+
+
+
+
+
+Setup greetd and regreet
+```
+[pby@archbook ~]$ cat /etc/greetd/config.toml
+[terminal]
+# The VT to run the greeter on. Can be "next", "current" or a number
+# designating the VT.
+vt = 1
+
+# The default session, also known as the greeter.
+[default_session]
+
+# `agreety` is the bundled agetty/login-lookalike. You can replace `/bin/sh`
+# with whatever you want started, such as `sway`.
+# command = "Hyprland --config /etc/greetd/hyprland.conf"
+
+command = "start-hyprland -- -c /etc/greetd/hyprland.conf"
+
+# command = "agreety --cmd /bin/sh"
+
+# The user to run the command as. The privileges this user must have depends
+# on the greeter. A graphical greeter may for example require the user to be
+# in the `video` group.
+user = "greeter"
+[pby@archbook ~]$ cat /etc/greetd/hyprland.conf
+exec-once = regreet; hyprctl dispatch exit
+misc {
+    disable_hyprland_logo = true
+    disable_splash_rendering = true
+    disable_hyprland_guiutils_check = true
+}
+
+env = GTK_USE_PORTAL,0
+env = GDK_DEBUG,no-portals
+
+[pby@archbook ~]$
+sudo systemctl start greetd.service
+```

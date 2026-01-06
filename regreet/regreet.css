@@ -1,368 +1,125 @@
-/* macOS-style ReGreet CSS */
-/* Frosted glass style on buttons and fields */
-
-/* ============================================
-   WINDOW & BACKGROUND
-   ============================================ */
-
-window {
-    background-color: transparent;
+* {
+    all: unset;
 }
 
-/* ============================================
-   MAIN LOGIN FRAME - Frosted Glass Effect
-   ============================================ */
+/* Background image blur */
+picture {
+    filter: blur(1.2rem);
+}
 
+/* Main frame */
 frame.background {
-    background-color: rgba(40, 40, 50, 0.75);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-        0 25px 50px rgba(0, 0, 0, 0.4),
-        0 0 1px rgba(255, 255, 255, 0.1) inset;
+    background: rgba(32, 32, 32, 0.92);
+    color: #e6e6e6;
+    border-radius: 24px;
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.6);
 }
 
-frame.background > grid {
-    padding: 25px 30px;
-}
-
-/* ============================================
-   MESSAGE / GREETING LABEL
-   ============================================ */
-
-#message_label {
-    color: rgba(255, 255, 255, 0.95);
-    font-size: 22px;
-    font-weight: 600;
-    margin-bottom: 15px;
-    letter-spacing: 0.3px;
-}
-
-/* ============================================
-   LABELS
-   ============================================ */
-
-label {
-    color: rgba(255, 255, 255, 0.85);
-    font-size: 14px;
-    font-weight: 500;
-}
-
-/* Clock label - bigger */
-frame.background label {
-    font-size: 20px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-}
-
-/* ============================================
-   DROPDOWN BOXES - Frosted Glass
-   ============================================ */
-
-combobox button {
-    all: unset;
-    background-color: rgba(40, 40, 50, 0.7);
-    background-image: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    padding: 10px 14px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    min-height: 22px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-combobox button:hover {
-    background-color: rgba(50, 50, 60, 0.8);
-    background-image: none;
-    border-color: rgba(255, 255, 255, 0.2);
-}
-
-combobox button:focus {
-    background-color: rgba(50, 50, 60, 0.8);
-    background-image: none;
-    border-color: rgba(100, 150, 255, 0.5);
-    box-shadow: 0 0 0 2px rgba(100, 150, 255, 0.2);
-}
-
-combobox arrow {
-    color: rgba(255, 255, 255, 0.6);
-    min-width: 16px;
-    min-height: 16px;
-}
-
-combobox cellview {
-    color: rgba(255, 255, 255, 0.9);
-}
-
-/* ============================================
-   TOGGLE BUTTONS (Edit icons) - Frosted Glass
-   ============================================ */
-
-togglebutton,
-togglebutton.flat,
-togglebutton.image-button,
-button.toggle,
-button.image-button.toggle {
-    all: unset;
-    background-color: rgba(40, 40, 50, 0.7);
-    background-image: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
+/* Top bar */
+frame.background.top {
+    font-size: 1.2rem;
     padding: 8px;
-    color: rgba(255, 255, 255, 0.7);
-    min-width: 36px;
-    min-height: 36px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    background: #1e1e1e;
+    border-radius: 0;
+    border-bottom-left-radius: 24px;
+    border-bottom-right-radius: 24px;
 }
 
-togglebutton:hover,
-togglebutton.flat:hover,
-togglebutton.image-button:hover,
-button.toggle:hover,
+/* Primary action button */
+box.horizontal > button.default.suggested-action.text-button {
+    background: #3a82f7;
+    color: #ffffff;
+    padding: 12px;
+    margin: 0 8px;
+    border-radius: 12px;
+    transition: background 0.3s ease-in-out;
+}
+
+box.horizontal > button.default.suggested-action.text-button:hover {
+    background: #5a96ff;
+}
+
+/* Secondary / cancel buttons */
+box.horizontal > button.text-button {
+    background: #2a2a2a;
+    color: #f0f0f0;
+    padding: 12px;
+    border-radius: 12px;
+    transition: background 0.3s ease-in-out;
+}
+
+box.horizontal > button.text-button:hover {
+    background: #c0392b;
+    color: #ffffff;
+}
+
+/* Combobox */
+combobox {
+    background: #2a2a2a;
+    color: #e6e6e6;
+    border-radius: 12px;
+    padding: 12px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+combobox:hover {
+    background: #353535;
+}
+
+combobox:disabled {
+    background: #1f1f1f;
+    color: rgba(230, 230, 230, 0.5);
+}
+
+/* Combobox dropdown */
+combobox > popover {
+    background: #2a2a2a;
+    color: #e6e6e6;
+    border-radius: 8px;
+    padding: 6px 12px;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+combobox > popover > contents {
+    padding: 2px;
+}
+
+/* Flat model buttons */
+modelbutton.flat {
+    background: #2f2f2f;
+    padding: 6px;
+    margin: 2px;
+    border-radius: 8px;
+}
+
+modelbutton.flat:hover {
+    background: #3a3a3a;
+}
+
+/* Image toggle buttons */
+button.image-button.toggle {
+    margin-right: 36px;
+    padding: 12px;
+    border-radius: 12px;
+}
+
 button.image-button.toggle:hover {
-    background-color: rgba(50, 50, 60, 0.8);
-    background-image: none;
-    border-color: rgba(255, 255, 255, 0.2);
-    color: rgba(255, 255, 255, 0.9);
+    background: #2a2a2a;
+    box-shadow: 0 0 4px rgba(0, 0, 0, 0.5);
 }
 
-togglebutton:checked,
-togglebutton.flat:checked,
-togglebutton.image-button:checked,
-button.toggle:checked,
-button.image-button.toggle:checked {
-    background-color: rgba(60, 80, 120, 0.7);
-    background-image: none;
-    border-color: rgba(100, 150, 255, 0.4);
-    color: rgba(180, 210, 255, 1);
-}
-
-/* ============================================
-   TEXT ENTRIES - Frosted Glass
-   ============================================ */
-
-entry {
-    background-color: rgba(40, 40, 50, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    padding: 10px 14px;
-    color: white;
-    font-size: 14px;
-    min-height: 22px;
-    caret-color: white;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-entry:focus {
-    background-color: rgba(50, 50, 60, 0.8);
-    border-color: rgba(100, 150, 255, 0.5);
-    box-shadow: 0 0 0 2px rgba(100, 150, 255, 0.2);
-    outline: none;
-}
-
-entry selection {
-    background-color: rgba(100, 150, 255, 0.4);
+button.image-button.toggle:disabled {
+    background: #1f1f1f;
+    color: rgba(230, 230, 230, 0.5);
 }
 
 /* Password entry */
-passwordentry {
-    background-color: rgba(40, 40, 50, 0.7);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    padding: 10px 14px;
-    color: white;
-    font-size: 14px;
-    min-height: 22px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+entry.password {
+    border: 2px solid #3a82f7;
+    border-radius: 12px;
+    padding: 12px;
 }
 
-passwordentry:focus {
-    background-color: rgba(50, 50, 60, 0.8);
-    border-color: rgba(100, 150, 255, 0.5);
-    box-shadow: 0 0 0 2px rgba(100, 150, 255, 0.2);
-    outline: none;
-}
-
-passwordentry image {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-passwordentry image:hover {
-    color: rgba(255, 255, 255, 0.8);
-}
-
-/* ============================================
-   LOGIN BUTTON - Blue Gradient (keep as is)
-   ============================================ */
-
-button.suggested-action {
-    all: unset;
-    background-image: linear-gradient(to bottom, rgba(90, 170, 255, 1), rgba(50, 140, 255, 1));
-    border: none;
-    border-radius: 8px;
-    padding: 10px 28px;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    min-height: 22px;
-    box-shadow: 0 2px 8px rgba(50, 140, 255, 0.35);
-}
-
-button.suggested-action:hover {
-    background-image: linear-gradient(to bottom, rgba(110, 180, 255, 1), rgba(70, 155, 255, 1));
-    box-shadow: 0 4px 15px rgba(50, 140, 255, 0.45);
-}
-
-button.suggested-action:active {
-    background-image: linear-gradient(to bottom, rgba(40, 120, 230, 1), rgba(30, 100, 210, 1));
-}
-
-/* ============================================
-   CANCEL BUTTON - Frosted Glass
-   ============================================ */
-
-button:not(.destructive-action):not(.suggested-action):not(.toggle):not(.image-button) {
-    all: unset;
-    background-color: rgba(40, 40, 50, 0.7);
-    background-image: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    padding: 10px 22px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 14px;
-    font-weight: 500;
-    min-height: 22px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-button:not(.destructive-action):not(.suggested-action):not(.toggle):not(.image-button):hover {
-    background-color: rgba(50, 50, 60, 0.8);
-    background-image: none;
-    border-color: rgba(255, 255, 255, 0.2);
-    color: white;
-}
-
-button:not(.destructive-action):not(.suggested-action):not(.toggle):not(.image-button):active {
-    background-color: rgba(35, 35, 45, 0.7);
-    background-image: none;
-}
-
-/* ============================================
-   REBOOT & POWER OFF - Frosted Glass
-   ============================================ */
-
-button.destructive-action {
-    all: unset;
-    background-color: rgba(40, 40, 50, 0.7);
-    background-image: none;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    border-radius: 10px;
-    padding: 10px 22px;
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 13px;
-    font-weight: 500;
-    min-height: 20px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-button.destructive-action:hover {
-    background-color: rgba(50, 50, 60, 0.8);
-    background-image: none;
-    border-color: rgba(255, 255, 255, 0.2);
-    color: white;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
-}
-
-button.destructive-action:active {
-    background-color: rgba(35, 35, 45, 0.7);
-    background-image: none;
-}
-
-/* ============================================
-   REMOVE UNWANTED LINES/BORDERS
-   ============================================ */
-
-frame,
-frame > *,
-separator {
-    border: none;
-    box-shadow: none;
-    background: transparent;
-    min-height: 0;
-    min-width: 0;
-}
-
-/* Re-apply main login frame styling */
-frame.background {
-    background-color: rgba(40, 40, 50, 0.75);
-    border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    box-shadow:
-        0 25px 50px rgba(0, 0, 0, 0.4),
-        0 0 1px rgba(255, 255, 255, 0.1) inset;
-}
-
-/* ============================================
-   ERROR INFO BAR
-   ============================================ */
-
-infobar {
-    background-color: rgba(80, 40, 40, 0.7);
-    border-radius: 10px;
-    border: 1px solid rgba(255, 100, 100, 0.2);
-}
-
-infobar label {
-    color: rgba(255, 150, 150, 0.95);
-    font-size: 13px;
-    font-weight: 500;
-    padding: 8px 12px;
-}
-
-/* ============================================
-   SELECTION COLORS
-   ============================================ */
-
-selection {
-    background-color: rgba(100, 150, 255, 0.4);
-    color: white;
-}
-
-*:selected {
-    background-color: rgba(100, 150, 255, 0.4);
-}
-
-/* ============================================
-   TOOLTIP STYLING
-   ============================================ */
-
-tooltip {
-    background-color: rgba(40, 40, 50, 0.9);
-    border-radius: 8px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
-
-tooltip label {
-    color: rgba(255, 255, 255, 0.9);
-    font-size: 12px;
-}
-
-/* ============================================
-   SCROLLBAR STYLING
-   ============================================ */
-
-scrollbar {
-    background-color: transparent;
-}
-
-scrollbar slider {
-    background-color: rgba(255, 255, 255, 0.25);
-    border-radius: 10px;
-    min-width: 6px;
-    min-height: 6px;
-}
-
-scrollbar slider:hover {
-    background-color: rgba(255, 255, 255, 0.4);
+entry.password:hover {
+    border: 2px solid #5a96ff;
 }

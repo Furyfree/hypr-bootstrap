@@ -7,6 +7,7 @@ hypridle
 hyprlock
 hyprpicker
 hyprsunset
+uwsm
 
 # ====================
 # Login Manager
@@ -20,6 +21,20 @@ greetd-regreet
 waybar
 walker
 swaync
+swayosd
+elephant
+elephant-calc
+elephant-clipboard
+elephant-bluetooth
+elephant-desktopapplications
+elephant-files
+elephant-menus
+elephant-providerlist
+elephant-runner
+elephant-symbols
+elephant-unicode
+elephant-websearch
+elephant-todo
 
 # ====================
 # Theming
@@ -30,6 +45,7 @@ apple_cursor
 ttf-jetbrains-mono-nerd
 matugen
 awww-git
+gnome-themes-extra
 
 # ====================
 # GTK & Qt
@@ -39,6 +55,7 @@ qt6-wayland
 nwg-look
 kvantum
 kvantum-qt5
+xdg-desktop-portal-gtk
 
 # ====================
 # Authentication
@@ -131,7 +148,7 @@ docker-compose
 # ====================
 # Network & Bluetooth
 # ====================
-NetworkManager
+networkmanager
 iwd
 impala
 wiremix

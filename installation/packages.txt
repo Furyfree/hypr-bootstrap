@@ -18,10 +18,10 @@ greetd-regreet
 # ====================
 # Bar, Launcher & Notifications
 # ====================
-waybar
-walker
 swaync
 swayosd
+waybar
+walker-bin
 elephant
 elephant-calc
 elephant-clipboard
@@ -108,6 +108,12 @@ zed
 code
 code-marketplace
 chaotic-aur/jetbrains-toolbox
+
+# VScode
+code
+code-marketplace
+code-features
+icu69-bin
 
 # ====================
 # Browsers

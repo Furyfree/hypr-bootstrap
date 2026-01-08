@@ -1,0 +1,5 @@
+automount: true
+menu: flat  # or 'nested' for submenus
+file_manager: thunar
+tray: smart  # 'always', 'smart', or 'never'
+notify: true

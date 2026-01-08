@@ -23,3 +23,4 @@ format = "%a %H:%M"
 resolution = "500ms"
 timezone = "Europe/Copenhagen"
 label_width = 150
+

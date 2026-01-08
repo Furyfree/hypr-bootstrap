@@ -6,6 +6,16 @@ echo "Setting up auto unlock of FDE with systemd"
 # Authenticate sudo once
 sudo -v || exit 1
 
+# Check prerequisites limine-mkinitcpio-hook limine-snapper-sync
+if ! pacman -Qi limine-mkinitcpio-hook &>/dev/null; then
+  echo "ERROR: limine-mkinitcpio-hook is not installed"
+  paru -S limine-mkinitcpio-hook
+fi
+if ! pacman -Qi limine-snapper-sync &>/dev/null; then
+  echo "ERROR: limine-snapper-sync is not installed"
+  paru -S limine-snapper-sync
+fi
+
 # --- TPM presence check ---
 if [ ! -e /dev/tpmrm0 ] && [ ! -e /dev/tpm0 ]; then
   echo "ERROR: No TPM device found"

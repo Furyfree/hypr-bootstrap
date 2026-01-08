@@ -93,12 +93,17 @@ curlie
 httpie
 bandwhich
 github-cli
+tree
 
 # ====================
 # File Management
 # ====================
 thunar
 udiskie
+tumbler
+ffmpegthumbnailer
+gvfs
+thunar-archive-plugin
 
 # ====================
 # Editors & IDEs

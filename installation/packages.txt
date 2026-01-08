@@ -97,6 +97,7 @@ bandwhich
 github-cli
 tree
 eza
+tokei
 
 # ====================
 # File Management

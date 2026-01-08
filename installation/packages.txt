@@ -57,10 +57,12 @@ kvantum
 kvantum-qt5
 xdg-desktop-portal-gtk
 
+
 # ====================
 # Authentication
 # ====================
 polkit-gnome
+seahorse
 1password
 1password-cli
 

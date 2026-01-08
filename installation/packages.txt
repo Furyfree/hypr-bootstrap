@@ -94,6 +94,7 @@ httpie
 bandwhich
 github-cli
 tree
+eza
 
 # ====================
 # File Management
@@ -155,6 +156,10 @@ baobab
 # ====================
 docker
 docker-compose
+base-devel
+gcc
+clang
+tk
 
 # ====================
 # Network & Bluetooth

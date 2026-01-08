@@ -11,10 +11,10 @@ export PATH="$PATH:$HOME/.dotnet/tools"
 export PATH="$PATH:$HOME/.local/share/omarchy/bin:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH=/home/pby/.opencode/bin:$PATH
-. "$HOME/.local/share/../bin/env"
+
 
 # Mise (Environment manager for multiple languages)
-# eval "$(mise activate zsh)"
+eval "$(~/.local/bin/mise activate zsh)"
 
 # Starship
 export STARSHIP_CONFIG=$HOME/.config/starship/starship.toml

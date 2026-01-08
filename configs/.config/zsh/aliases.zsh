@@ -42,3 +42,6 @@ alias vpn-down='nmcli connection down unifi-wg'
 
 # System Maintenance
 alias updategrub='sudo grub-mkconfig -o /boot/grub/grub.cfg'
+
+# AUR Helpers
+alias yay='paru'

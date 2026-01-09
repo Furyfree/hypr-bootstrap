@@ -109,6 +109,12 @@ tumbler
 ffmpegthumbnailer
 gvfs
 thunar-archive-plugin
+xarchiver
+unrar
+7zip
+p7zip
+zip 
+unzip
 
 # ====================
 # Editors & IDEs

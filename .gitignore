@@ -1,1 +1,5 @@
+# Ignore local zsh configurations - example for work settings
 configs/.config/zsh/.local
+
+# HyprDynamicMonitors generated file
+.config/hypr/monitors.conf

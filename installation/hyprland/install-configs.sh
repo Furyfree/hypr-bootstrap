@@ -12,6 +12,10 @@ set -euo pipefail
 
 REPO_ROOT=$(pwd)
 CONFIG_DIR="$REPO_ROOT/configs"
+BACKUP_DIR="$HOME/.config/backups"
+
+# Create backups directory if it doesn't exist
+mkdir -p "$BACKUP_DIR"
 
 if [ ! -d "$CONFIG_DIR" ]; then
     echo "Error: 'configs/' directory not found in repo root."
@@ -29,10 +33,18 @@ find "$CONFIG_DIR" -mindepth 1 -maxdepth 1 -type f | while read -r item; do
     
     target="$HOME/$filename"
     
-    # Backup existing item if it exists
+    # Backup existing item if it exists and is not already a symlink to our repo
     if [ -e "$target" ] || [ -L "$target" ]; then
+        # Skip if it's already a symlink pointing to our configs
+        if [ -L "$target" ]; then
+            link_target=$(readlink "$target")
+            if [[ "$link_target" == "$CONFIG_DIR"* ]]; then
+                echo "Skipping $target (already symlinked to repo)"
+                continue
+            fi
+        fi
         timestamp=$(date +%Y%m%d_%H%M%S)
-        backup="$target.bak.$timestamp"
+        backup="$BACKUP_DIR/$filename.bak.$timestamp"
         mv "$target" "$backup"
         echo "Backed up $target to $backup"
     fi
@@ -63,10 +75,21 @@ find "$CONFIG_DIR" -mindepth 2 -maxdepth 2 -type d | while read -r item; do
     parent_target=$(dirname "$target")
     mkdir -p "$parent_target"
     
-    # Backup existing item if it exists
+    # Backup existing item if it exists and is not already a symlink to our repo
     if [ -e "$target" ] || [ -L "$target" ]; then
+        # Skip if it's already a symlink pointing to our configs
+        if [ -L "$target" ]; then
+            link_target=$(readlink "$target")
+            if [[ "$link_target" == "$CONFIG_DIR"* ]]; then
+                echo "Skipping $target (already symlinked to repo)"
+                continue
+            fi
+        fi
         timestamp=$(date +%Y%m%d_%H%M%S)
-        backup="$target.bak.$timestamp"
+        # Preserve directory structure in backups
+        backup_rel_path="$parent/$child.bak.$timestamp"
+        backup="$BACKUP_DIR/$backup_rel_path"
+        mkdir -p "$(dirname "$backup")"
         mv "$target" "$backup"
         echo "Backed up $target to $backup"
     fi

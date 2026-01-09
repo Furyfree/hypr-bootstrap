@@ -50,4 +50,8 @@ echo "Step 10: Setting up Walker launcher..."
 source "$REPO_ROOT/installation/hyprland/launcher/walker.sh"
 echo
 
+echo "Step 11: Setting up monitor services..."
+source "$REPO_ROOT/installation/hyprland/setup-monitors.sh"
+echo
+
 echo "=== Installation Complete ==="

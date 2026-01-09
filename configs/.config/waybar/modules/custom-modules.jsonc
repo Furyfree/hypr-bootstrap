@@ -1,7 +1,7 @@
 {
     "custom/launcher": {
         "format": "󰣇",
-        "on-click": "wofi --show drun",
+        "on-click": "walker",
     },
 
     "custom/notification": {
@@ -48,7 +48,7 @@
     },
 
     "custom/weather": {
-        "exec": "${HOME}/.config/waybar/scripts/get-weather.sh Texas",
+        "exec": "${HOME}/.config/waybar/scripts/get-weather.sh Copengagen",
         "return-type": "json",
         "format": "{}",
         "tooltip": true,

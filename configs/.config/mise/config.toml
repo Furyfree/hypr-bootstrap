@@ -5,6 +5,7 @@ java = "corretto-25"
 node = "24"
 python = "3.13"
 uv = "latest"
+zig = "0.15"
 
 [settings]
 python.uv_venv_auto = true

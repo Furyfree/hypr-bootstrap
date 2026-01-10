@@ -1,7 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
 set -euo pipefail
 
-echo "Setting up greetd + regreet"
+echo "Setting up ly login manager..."
 sudo -v
 
 REPO_ROOT=$(pwd)
@@ -13,9 +13,11 @@ if [ ! -d "$CONFIG_DIR" ]; then
 fi
 
 # ---- config dirs ----
-sudo mkdir -p /etc/greetd
+sudo mkdir -p /etc/ly
 
 # ---- Copy config files ----
-sudo cp -r $CONFIG_DIR/etc/greetd/ /etc/greetd/
+sudo cp $CONFIG_DIR/etc/ly/config.ini /etc/ly/
 
-sudo systemctl enable --now greetd
+# ---- Enable ly service ----
+sudo systemctl disable getty@tty2.service
+sudo systemctl enable ly@tty2.service

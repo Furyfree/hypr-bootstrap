@@ -13,8 +13,8 @@ brightnessctl
 # ====================
 # Login Manager
 # ====================
-greetd
-greetd-regreet
+ly
+terminus-font
 
 # ====================
 # Bar, Launcher & Notifications

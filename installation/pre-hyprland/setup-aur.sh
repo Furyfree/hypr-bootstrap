@@ -1,30 +1,50 @@
 #!/bin/bash
+set -euo pipefail
 
-SCRIPT_DIR="$(cd -- "$(dirname "$0")" && pwd)"
+# Refresh sudo once at start (helps for initial deps)
+sudo -v
 
-echo "Installing prerequisites for paru"
-
-sudo pacman -Sy --needed --noconfirm \
-  base-devel \
-  git \
-  rustup
-
-echo "Initializing rustup"
+echo "Installing minimal requirements..."
+sudo pacman -Sy --needed --noconfirm base-devel git rustup
 rustup default stable
 
-if command -v paru >/dev/null 2>&1; then
-  echo "paru already installed, skipping"
-  exit 0
+# Install paru AUR helper (only if not already present)
+if ! command -v paru &>/dev/null; then
+    echo "paru not found → installing from AUR..."
+
+    TMP_DIR="/tmp/paru-install-$(date +%s)"
+    git clone https://aur.archlinux.org/paru.git "$TMP_DIR"
+    cd "$TMP_DIR"
+    makepkg -si --noconfirm --needed
+    cd ~
+    rm -rf "$TMP_DIR"
+
+    # Quick safety check
+    if ! command -v paru &>/dev/null; then
+        echo "ERROR: paru installation failed!"
+        exit 1
+    fi
+
+    echo "paru successfully installed."
+else
+    echo "paru is already installed, skipping."
 fi
 
-WORKDIR="$(mktemp -d)"
-trap 'rm -rf "$WORKDIR"' EXIT
+# Paru config (from xerolinux guide)
+echo "Configuring paru AUR helper..."
+sudo sed -i -e 's/^#BottomUp/BottomUp/' \
+           -e 's/^#SudoLoop/SudoLoop/' \
+           -e 's/^#CombinedUpgrade/CombinedUpgrade/' \
+           -e 's/^#UpgradeMenu/UpgradeMenu/' \
+           -e 's/^#NewsOnUpgrade/NewsOnUpgrade/' /etc/paru.conf
 
-echo "Cloning paru"
-git clone https://aur.archlinux.org/paru.git "$WORKDIR/paru"
+echo "SkipReview" | sudo tee -a /etc/paru.conf >/dev/null
+paru --gendb
 
-echo "Building and installing paru"
-cd "$WORKDIR/paru"
-makepkg -si --noconfirm
+echo "Setting up paccache.timer (automatic cache cleanup)..."
+if ! pacman -Q pacman-contrib &>/dev/null; then
+    sudo pacman -S --needed --noconfirm pacman-contrib
+fi
+sudo systemctl enable --now paccache.timer
 
-echo "paru installation complete"
+echo "AUR helper setup complete."

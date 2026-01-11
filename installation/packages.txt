@@ -48,13 +48,13 @@ ttf-jetbrains-mono-nerd
 matugen
 awww-git
 gnome-themes-extra
+woff2-font-awesome
 
 # ====================
 # GTK & Qt
 # ====================
 qt5-wayland
 qt6-wayland
-nwg-look
 kvantum
 kvantum-qt5
 xdg-desktop-portal-gtk
@@ -114,7 +114,7 @@ xarchiver
 unrar
 7zip
 p7zip
-zip 
+zip
 unzip
 
 # ====================

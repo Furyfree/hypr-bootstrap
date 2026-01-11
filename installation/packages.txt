@@ -9,6 +9,7 @@ hyprpicker
 hyprsunset
 uwsm
 brightnessctl
+wl-clipboard
 
 # ====================
 # Login Manager

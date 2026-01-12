@@ -23,7 +23,7 @@ terminus-font
 swaync
 swayosd
 waybar
-walker-bin
+walker
 elephant
 elephant-calc
 elephant-clipboard

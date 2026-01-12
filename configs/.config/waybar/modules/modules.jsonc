@@ -27,7 +27,7 @@
             "default": ["", ""],
         },
         "scroll-step": 1,
-        "on-click": "pavucontrol",
+        "on-click": "launch-tui wiremix",
         "ignored-sinks": ["Easy Effects Sink"],
     },
 
@@ -41,6 +41,7 @@
         "tooltip-format-wifi": "{essid} ({signalStrength}%) ",
         "tooltip-format-ethernet": "{ifname} ",
         "tooltip-format-disconnected": "Disconnected",
+        "on-click": "launch-wifi",
         "max-length": 50,
     },
 

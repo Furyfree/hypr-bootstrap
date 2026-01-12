@@ -8,7 +8,7 @@ export PATH="$HOME/.local/share/JetBrains/Toolbox/scripts:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$PATH:$HOME/.lmstudio/bin"
 export PATH="$PATH:$HOME/.dotnet/tools"
-export PATH="$PATH:$HOME/.local/share/omarchy/bin:$PATH"
+export PATH="$HOME/.local/bin/scripts:$PATH"
 export PATH=$PATH:$(go env GOPATH)/bin
 export PATH=/home/pby/.opencode/bin:$PATH
 

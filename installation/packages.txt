@@ -177,6 +177,7 @@ tk
 # Network & Bluetooth
 # ====================
 networkmanager
+network-manager-applet
 iwd
 impala
 wiremix

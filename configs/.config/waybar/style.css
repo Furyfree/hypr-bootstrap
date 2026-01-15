@@ -1,97 +1,167 @@
-@import "colors/matugen.css";
-
 * {
-    border: none;
-    border-radius: 0;
-    font-family:
-        "SF Pro Display Bold", "SF Pro Text", "JetBrainsMono Nerd Font Propo", Roboto, Helvetica, Arial, sans-serif;
-    font-weight: 600;
-    font-size: 16px;
+    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
     min-height: 0;
-    border-radius: 50px;
 }
 
 window#waybar {
-    background: transparent;
+    background-color: rgba(30, 30, 46, 0.85);
+    color: #cdd6f4;
+    border-radius: 0;
+    transition: background-color 0.2s;
 }
 
-tooltip {
-    background: @surface;
-    border: 1px solid rgba(100, 114, 125, 0.5);
-}
-
-tooltip label {
-    color: white;
-}
-
-.modules-left {
-    margin-left: 15px;
-}
-
-.modules-right {
-    margin-right: 15px;
-}
-
-#custom-launcher,
-#clock,
+/* Modules */
 #workspaces,
-#custom-notification,
-#custom-media,
-#custom-pacman,
-#custom-weather,
-#pulseaudio,
+#clock,
 #battery,
+#pulseaudio,
 #network,
+#bluetooth,
+#tray,
+#custom-pacman,
+#custom-vpn,
+#custom-power,
+#custom-notification,
 #power-profiles-daemon {
-    background-color: #121212;
-    margin-right: 10px;
-    padding: 0 10px;
-    background-color: @surface;
-    color: @primary;
+    padding: 0 12px;
+    margin: 4px 3px;
+    background-color: rgba(49, 50, 68, 0.8);
+    border-radius: 8px;
+    color: #cdd6f4;
 }
 
-#power-profiles-daemon {
-    margin: 0;
-}
-
-#workspaces {
-    padding: 8px 5px;
-    border-radius: 16px;
-    background-color: @surface;
-    color: @primary;
-}
-
+/* Workspaces */
 #workspaces button {
-    padding: 0px 6px;
-    margin: 0px 3px;
-    border-radius: 50px;
-    color: transparent;
-    transition: all 0.3s ease-in-out;
-    background-color: @on_secondary;
+    padding: 0 8px;
+    background-color: transparent;
+    color: #6c7086;
+    border-radius: 6px;
+    margin: 2px;
 }
 
 #workspaces button.active {
-    background-color: @primary;
-    color: @surface;
-    min-width: 50px;
-    transition: all 0.3s ease-in-out;
-    font-size: 13px;
-    border-radius: 5px;
-}
-
-#workspaces button:hover {
-    background-color: @secondary;
-    color: @surface;
-    border-radius: 16px;
-    min-width: 50px;
-    background-size: 400% 400%;
+    background-color: rgba(203, 166, 247, 0.3);
+    color: #cba6f7;
 }
 
 #workspaces button.urgent {
-    background-color: @error;
-    color: @surface;
-    border-radius: 16px;
-    min-width: 50px;
-    background-size: 400% 400%;
-    transition: all 0.3s ease-in-out;
+    background-color: rgba(243, 139, 168, 0.3);
+    color: #f38ba8;
+}
+
+#workspaces button:hover {
+    background-color: rgba(108, 112, 134, 0.3);
+    color: #bac2de;
+}
+
+
+/* Clock */
+#clock {
+    color: #89b4fa;
+    font-weight: 600;
+}
+
+/* Battery */
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging, #battery.plugged {
+    color: #a6e3a1;
+}
+
+#battery.warning:not(.charging) {
+    color: #fab387;
+}
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+    50% {
+        opacity: 0.5;
+    }
+}
+
+/* Audio */
+#pulseaudio {
+    color: #f9e2af;
+}
+
+#pulseaudio.muted {
+    color: #6c7086;
+}
+
+/* Network */
+#network {
+    color: #94e2d5;
+}
+
+#network.disconnected {
+    color: #6c7086;
+}
+
+/* Bluetooth */
+#bluetooth {
+    color: #89dceb;
+}
+
+#bluetooth.off {
+    color: #6c7086;
+}
+
+/* Power profile */
+#power-profiles-daemon.performance {
+    color: #f38ba8;
+}
+
+#power-profiles-daemon.balanced {
+    color: #89b4fa;
+}
+
+#power-profiles-daemon.power-saver {
+    color: #a6e3a1;
+}
+
+/* Custom modules */
+#custom-power {
+    color: #f38ba8;
+    padding: 0 14px;
+}
+
+#custom-pacman {
+    color: #f9e2af;
+}
+
+#custom-vpn {
+    color: #cba6f7;
+}
+
+#custom-notification {
+    color: #f5c2e7;
+}
+
+/* Tray */
+#tray {
+    padding: 0 10px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+#privacy-item.audio-in {
+    background-color: #1ca000;
+}
+
+#privacy-item.audio-out {
+    background-color: #0069d4;
 }

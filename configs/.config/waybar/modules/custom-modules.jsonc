@@ -1,7 +1,48 @@
+// custom-modules.jsonc
 {
-    "custom/launcher": {
-        "format": "󰣇",
-        "on-click": "walker",
+"custom/pacman": {
+    "format": "{}  ",
+    "interval": 3600,                     // every hour
+    "exec": "checkupdates | wc -l",       // # of updates
+    "exec-if": "checkupdates 2>/dev/null | grep -q .",
+    "on-click": "termite -e 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
+    "signal": 8
+},
+
+"custom/weather": {
+    "exec": "${HOME}/.config/waybar/scripts/get_weather.sh Copenhagen+Denmark",
+    "return-type": "json",
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3600
+},
+
+"custom/spotify": {
+    "format": "{icon} {}",
+    "escape": true,
+    "return-type": "json",
+    "max-length": 40,
+    "interval": 30, // Remove this if your script is endless and write in loop
+    "on-click": "playerctl -p spotify play-pause",
+    "on-click-right": "killall spotify",
+    "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
+    "on-scroll-up" : "playerctl -p spotify next",
+    "on-scroll-down" : "playerctl -p spotify previous",
+    "exec": "/usr/bin/python3 $HOME/.config/waybar/scripts/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
+    "exec-if": "pgrep spotify"
+},
+
+    "custom/power": {
+        "format" : "⏻ ",
+		"tooltip": false,
+		"menu": "on-click",
+		"menu-file": "$HOME/.config/waybar/modules/power_menu.xml", // Menu file in resources folder
+		"menu-actions": {
+			"shutdown": "shutdown",
+			"reboot": "reboot",
+			"suspend": "systemctl suspend",
+			"hibernate": "systemctl hibernate"
+		}
     },
 
     "custom/notification": {
@@ -25,33 +66,31 @@
         "escape": true,
     },
 
-    "custom/media": {
-        "format": "{}",
-        "escape": true,
-        "return-type": "json",
-        "max-length": 40,
-        "on-click": "playerctl play-pause",
-        "on-click-right": "playerctl stop",
-        "smooth-scrolling-threshold": 10, // This value was tested using a trackpad, it should be lowered if using a mouse.
-        "on-scroll-up": "playerctl next",
-        "on-scroll-down": "playerctl previous",
-        "exec": "/home/user1/.config/waybar/scripts/mediaplayer.py 2> /dev/null", // Script in resources/custom_modules folder
-    },
+    "custom/vpn": {
+    "format": "VPN ",
+    "exec": "echo '{\"class\": \"connected\"}'",
+    // "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+    "return-type": "json",
+    "interval": 5
+},
 
-    "custom/pacman": {
-        "format": "{}  ",
-        "interval": 3600, // every hour
-        "exec": "checkupdates | wc -l", // # of updates
-        "exec-if": "exit 0", // always run; consider advanced run conditions
-        "on-click": "kitty --hold 'sudo pacman -Syu'; pkill -SIGRTMIN+8 waybar", // update system
-        "signal": 8,
+    "group/tray-expander": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 600,
+      "children-class": "tray-group-item"
     },
+    "modules": ["custom/expand-icon", "tray"]
+  },
+  "custom/expand-icon": {
+    "format": "",
+    "format-open": "",
+    "return-type": "json",
+    "tooltip": false,
+    "on-scroll-up": "",
+    "on-scroll-down": "",
+    "on-scroll-left": "",
+    "on-scroll-right": ""
+  },
 
-    "custom/weather": {
-        "exec": "${HOME}/.config/waybar/scripts/get-weather.sh Copengagen",
-        "return-type": "json",
-        "format": "{}",
-        "tooltip": true,
-        "interval": 3600,
-    },
 }

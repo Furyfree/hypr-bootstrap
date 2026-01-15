@@ -1,0 +1,4 @@
+#!/bin/bash
+
+pkill -x waybar || true && hyprctl dispatch exec waybar
+notify-send "Waybar refreshed..." -t 3000

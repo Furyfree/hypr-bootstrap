@@ -1,167 +1,107 @@
 * {
-    font-family: "JetBrainsMono Nerd Font", "Font Awesome 6 Free", sans-serif;
-    font-size: 14px;
-    font-weight: 500;
-    min-height: 0;
+  background-color: #1e1e2e;   /* dark neutral bg */
+  color: #cdd6f4;              /* light neutral fg / text */
+  border: none;
+  border-radius: 0;
+  min-height: 0;
+  font-family: 'JetBrainsMono Nerd Font';
+  font-size: 12px;
 }
 
-window#waybar {
-    background-color: rgba(30, 30, 46, 0.85);
-    color: #cdd6f4;
-    border-radius: 0;
-    transition: background-color 0.2s;
+.modules-left {
+  margin-left: 8px;
 }
 
-/* Modules */
-#workspaces,
-#clock,
+.modules-right {
+  margin-right: 8px;
+}
+
+#workspaces button {
+  all: initial;
+  padding: 0 6px;
+  margin: 0 1.5px;
+  min-width: 9px;
+  color: #cdd6f4;
+}
+
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+  background-color: #313244;   /* slightly raised neutral surface */
+  color: #cdd6f4;
+  border-bottom: 2px solid #89b4fa;   /* soft blue accent for focus — neutral-ish */
+  /* Alternatives: #a6e3a1 (green), #fab387 (orange), #f38ba8 (pink) */
+}
+
+#cpu,
 #battery,
 #pulseaudio,
-#network,
-#bluetooth,
-#tray,
-#custom-pacman,
-#custom-vpn,
-#custom-power,
-#custom-notification,
-#power-profiles-daemon {
-    padding: 0 12px;
-    margin: 4px 3px;
-    background-color: rgba(49, 50, 68, 0.8);
-    border-radius: 8px;
-    color: #cdd6f4;
+#custom-omarchy,
+#custom-screenrecording-indicator,
+#custom-update {
+  min-width: 12px;
+  margin: 0 7.5px;
+  color: #cdd6f4;
 }
 
-/* Workspaces */
-#workspaces button {
-    padding: 0 8px;
-    background-color: transparent;
-    color: #6c7086;
-    border-radius: 6px;
-    margin: 2px;
-}
-
-#workspaces button.active {
-    background-color: rgba(203, 166, 247, 0.3);
-    color: #cba6f7;
-}
-
-#workspaces button.urgent {
-    background-color: rgba(243, 139, 168, 0.3);
-    color: #f38ba8;
-}
-
-#workspaces button:hover {
-    background-color: rgba(108, 112, 134, 0.3);
-    color: #bac2de;
-}
-
-
-/* Clock */
-#clock {
-    color: #89b4fa;
-    font-weight: 600;
-}
-
-/* Battery */
-#battery {
-    color: #a6e3a1;
-}
-
-#battery.charging, #battery.plugged {
-    color: #a6e3a1;
-}
-
-#battery.warning:not(.charging) {
-    color: #fab387;
-}
-
-#battery.critical:not(.charging) {
-    color: #f38ba8;
-    animation: blink 1s ease-in-out infinite;
-}
-
-@keyframes blink {
-    50% {
-        opacity: 0.5;
-    }
-}
-
-/* Audio */
-#pulseaudio {
-    color: #f9e2af;
-}
-
-#pulseaudio.muted {
-    color: #6c7086;
-}
-
-/* Network */
-#network {
-    color: #94e2d5;
-}
-
-#network.disconnected {
-    color: #6c7086;
-}
-
-/* Bluetooth */
-#bluetooth {
-    color: #89dceb;
-}
-
-#bluetooth.off {
-    color: #6c7086;
-}
-
-/* Power profile */
-#power-profiles-daemon.performance {
-    color: #f38ba8;
-}
-
-#power-profiles-daemon.balanced {
-    color: #89b4fa;
-}
-
-#power-profiles-daemon.power-saver {
-    color: #a6e3a1;
-}
-
-/* Custom modules */
-#custom-power {
-    color: #f38ba8;
-    padding: 0 14px;
-}
-
-#custom-pacman {
-    color: #f9e2af;
-}
-
-#custom-vpn {
-    color: #cba6f7;
-}
-
-#custom-notification {
-    color: #f5c2e7;
-}
-
-/* Tray */
 #tray {
-    padding: 0 10px;
+  margin-right: 16px;
 }
 
-#tray > .passive {
-    -gtk-icon-effect: dim;
+#bluetooth {
+  margin-right: 17px;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
+#network {
+  margin-right: 13px;
 }
 
-#privacy-item.audio-in {
-    background-color: #1ca000;
+#custom-expand-icon {
+  margin-right: 18px;
 }
 
-#privacy-item.audio-out {
-    background-color: #0069d4;
+tooltip {
+  padding: 2px;
+  background-color: #2e2e3e;   /* tooltip bg - bit lighter than main */
+  color: #cdd6f4;
+  border: 1px solid #45475a;
+}
+
+#custom-update {
+  font-size: 10px;
+}
+
+#clock {
+  margin-left: 8.75px;
+  color: #94e2d5;   /* soft cyan/teal for clock — calmer than pure white */
+}
+
+.hidden {
+  opacity: 0;
+}
+
+#custom-screenrecording-indicator {
+  min-width: 12px;
+  margin-left: 5px;
+  font-size: 10px;
+  padding-bottom: 1px;
+  color: #cdd6f4;
+}
+
+#custom-screenrecording-indicator.active {
+  color: #f38ba8;   /* muted rose-red — visible + modern/neutral */
+  /* Alternatives: #e06c75 (softer red), #f5a97f (warm peach), #fab387 (orange) */
+}
+
+#custom-voxtype {
+  min-width: 12px;
+  margin: 0 0 0 7.5px;
+  color: #cdd6f4;
+}
+
+#custom-voxtype.recording {
+  color: #f38ba8;   /* match the recording indicator */
 }

@@ -1,20 +1,55 @@
 * {
-  background-color: #1e1e2e;   /* dark neutral bg */
-  color: #cdd6f4;              /* light neutral fg / text */
-  border: none;
-  border-radius: 0;
-  min-height: 0;
-  font-family: 'JetBrainsMono Nerd Font';
-  font-size: 12px;
+    font-family:
+        "SF Pro Display Bold", "SF Pro Text", "JetBrainsMono Nerd Font Propo", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    min-height: 0;
+    color: #ffffff;                    /* All text/icons white as requested */
 }
 
-.modules-left {
-  margin-left: 8px;
+window#waybar {
+    background-color: transparent;     /* Fully see-through – no tint */
+    background: transparent;           /* Double-check override */
+    border: none;                      /* Remove bottom border */
+    border-radius: 0;                  /* No rounding on the invisible bar */
+    box-shadow: none;                  /* Kill the shadow */
+    margin: 0;                         /* No extra outer margin if needed */
 }
 
+
+/* Container for unified bar */
+.modules-left,
+.modules-center,
 .modules-right {
-  margin-right: 8px;
+    background-color: rgba(49, 50, 68, 0.35);
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    margin-top: 4px;
+    margin-bottom: 0;
 }
+
+/* Modules – no individual borders, unified in container */
+#workspaces,
+#clock,
+#battery,
+#pulseaudio,
+#network,
+#bluetooth,
+#tray,
+#custom-pacman,
+#custom-vpn,
+#custom-power,
+#custom-notification,
+#custom-expand-icon,
+#power-profiles-daemon {
+    padding: 0 8px;
+    margin: 0;  /* No margins between modules */
+    background-color: transparent;  /* Transparent, container provides background */
+    border: none;  /* No individual borders */
+    border-radius: 0;  /* No individual rounding */
+    color: #ffffff;  /* White text */
+}
+
 
 #workspaces button {
   all: initial;
@@ -28,80 +63,162 @@
   opacity: 0.5;
 }
 
-#workspaces button.focused,
+
+/* Workspaces */
+#workspaces button {
+    padding: 0 6px;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.65);  /* Slightly dim for inactive */
+    border-radius: 6px;
+    margin: 2px;
+}
+
 #workspaces button.active {
-  background-color: #313244;   /* slightly raised neutral surface */
-  color: #cdd6f4;
-  border-bottom: 2px solid #89b4fa;   /* soft blue accent for focus — neutral-ish */
-  /* Alternatives: #a6e3a1 (green), #fab387 (orange), #f38ba8 (pink) */
+    background-color: rgba(203, 166, 247, 0.25);  /* Mauve accent, but transparent */
+    color: #ffffff;
 }
 
-#cpu,
-#battery,
-#pulseaudio,
-#custom-omarchy,
-#custom-screenrecording-indicator,
-#custom-update {
-  min-width: 12px;
-  margin: 0 7.5px;
-  color: #cdd6f4;
+#workspaces button.focused {
+    background-color: rgba(137, 180, 250, 0.25);  /* Soft blue accent, but transparent */
+    color: #ffffff;
 }
 
-#tray {
-  margin-right: 16px;
+#workspaces button.urgent {
+    background-color: rgba(243, 139, 168, 0.25);
+    color: #ffffff;
 }
 
-#bluetooth {
-  margin-right: 17px;
+#workspaces button:hover {
+    background-color: rgba(108, 112, 134, 0.25);
+    color: #ffffff;
 }
 
+#workspaces button.empty {
+  opacity: 0.5;
+}
+
+/* Clock */
+#clock {
+    color: #ffffff;     /* Pure white (override your blue if you want full white) */
+    font-weight: 600;
+    padding-left: 10px;
+    padding-right: 4px;
+}
+
+/* Battery */
+#battery {
+    color: #ffffff;
+}
+
+#battery.charging, #battery.plugged {
+    color: #ffffff;
+}
+
+#battery.warning:not(.charging) {
+    color: #fab387;
+}
+
+#battery.critical:not(.charging) {
+    color: #f38ba8;
+    animation: blink 1s ease-in-out infinite;
+}
+
+@keyframes blink {
+    50% { opacity: 0.5; }
+}
+
+/* Audio */
+#pulseaudio {
+    color: #ffffff;
+}
+
+#pulseaudio.muted {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Network */
 #network {
-  margin-right: 13px;
+    color: #ffffff;
+}
+
+#network.disconnected {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Bluetooth */
+#bluetooth {
+    color: #ffffff;
+}
+
+#bluetooth.off {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+/* Power profile */
+#power-profiles-daemon.performance {
+    color: #ffffff;
+}
+
+#power-profiles-daemon.balanced {
+    color: #ffffff;
+}
+
+#power-profiles-daemon.power-saver {
+    color: #ffffff;
+}
+
+/* Custom modules */
+#custom-power {
+    color: #ffffff;
+    padding: 0 14px;
+}
+
+#custom-pacman {
+    color: #ffffff;
+}
+
+#custom-vpn {
+    color: #ffffff;
+    margin-top: 4px;
+    font-size: 14px;
+}
+
+#custom-notification {
+    color: #ffffff;
+}
+
+/* Tray */
+#tray {
+    padding: 0 10px 0 0;  /* No padding on right to prevent overflow */
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}
+
+/* Tray expander group */
+group#tray-expander {
+    padding: 0;
+    margin: 0;
 }
 
 #custom-expand-icon {
-  margin-right: 18px;
+    padding-left: 2px;
+    padding-right: 10px;
 }
 
-tooltip {
-  padding: 2px;
-  background-color: #2e2e3e;   /* tooltip bg - bit lighter than main */
-  color: #cdd6f4;
-  border: 1px solid #45475a;
+.tray-group-item {
+    padding: 0 10px 0 0;  /* Extra padding on right for tray items */
 }
 
-#custom-update {
-  font-size: 10px;
+#privacy-item.audio-in {
+    background-color: #1ca000;
 }
 
-#clock {
-  margin-left: 8.75px;
-  color: #94e2d5;   /* soft cyan/teal for clock — calmer than pure white */
-}
-
-.hidden {
-  opacity: 0;
-}
-
-#custom-screenrecording-indicator {
-  min-width: 12px;
-  margin-left: 5px;
-  font-size: 10px;
-  padding-bottom: 1px;
-  color: #cdd6f4;
-}
-
-#custom-screenrecording-indicator.active {
-  color: #f38ba8;   /* muted rose-red — visible + modern/neutral */
-  /* Alternatives: #e06c75 (softer red), #f5a97f (warm peach), #fab387 (orange) */
-}
-
-#custom-voxtype {
-  min-width: 12px;
-  margin: 0 0 0 7.5px;
-  color: #cdd6f4;
-}
-
-#custom-voxtype.recording {
-  color: #f38ba8;   /* match the recording indicator */
+#privacy-item.audio-out {
+    background-color: #0069d4;
 }

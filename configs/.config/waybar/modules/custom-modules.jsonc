@@ -32,18 +32,11 @@
     "exec-if": "pgrep spotify"
 },
 
-    "custom/power": {
-        "format" : "⏻ ",
-		"tooltip": false,
-		"menu": "on-click",
-		"menu-file": "$HOME/.config/waybar/modules/power_menu.xml", // Menu file in resources folder
-		"menu-actions": {
-			"shutdown": "shutdown",
-			"reboot": "reboot",
-			"suspend": "systemctl suspend",
-			"hibernate": "systemctl hibernate"
-		}
-    },
+"custom/power": {
+    "format": "⏻ ",          // Power symbol (you can change to e.g. "⏻" or " " with Nerd Font)
+    "tooltip": false,         // No tooltip needed for a simple button
+    "on-click": "wlogout",    // Launches wlogout on left-click
+},
 
     "custom/notification": {
         "tooltip": false,
@@ -66,12 +59,19 @@
         "escape": true,
     },
 
-    "custom/vpn": {
-    "format": "VPN ",
-    "exec": "echo '{\"class\": \"connected\"}'",
-    // "exec-if": "test -d /proc/sys/net/ipv4/conf/tun0",
+"custom/vpn": {
+    "format": "{} 🔒 🔓",                     // uses the 'text' from JSON, but we override with icons below
     "return-type": "json",
-    "interval": 5
+    // "exec": "~/.config/waybar/scripts/vpn.sh",  // your detection script
+    "interval": 10,
+    "format-icons": {
+        "connected": "🔒",              // closed lock = protected
+        "disconnected": "🔓"            // open lock = vulnerable/no VPN
+        // or make disconnected empty: "disconnected": " "
+    },
+    "tooltip-format": "{icon} VPN {alt}",   // optional: shows "🔒 VPN connected" etc.
+    "on-click": "your-connect-command",     // toggle if you want
+    "on-click-right": "your-disconnect-command"
 },
 
     "group/tray-expander": {
@@ -84,13 +84,7 @@
   },
   "custom/expand-icon": {
     "format": "",
-    "format-open": "",
-    "return-type": "json",
-    "tooltip": false,
-    "on-scroll-up": "",
-    "on-scroll-down": "",
-    "on-scroll-left": "",
-    "on-scroll-right": ""
-  },
+    "tooltip": false
+  }
 
 }

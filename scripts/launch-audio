@@ -2,4 +2,6 @@
 
 # Launch the audio controls TUI (provided by wiremix).
 
-launch-or-focus-tui wiremix
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+exec "$SCRIPT_DIR/launch-or-focus-tui" wiremix

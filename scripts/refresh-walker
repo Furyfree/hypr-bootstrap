@@ -1,5 +1,6 @@
 #!/bin/bash
 
 pkill -x walker
+systemctl --user restart elephant.service
 walker --gapplication-service &
 notify-send "Walker refreshed..." -t 3000

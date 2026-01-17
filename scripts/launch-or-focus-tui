@@ -3,7 +3,9 @@
 # Launch or focus on a given TUI identified by the passed in as the command.
 # Use by commands like omarchy-launch-wifi to ensure there is only one wifi configuration screen open.
 
-APP_ID="org.omarchy.$(basename "$1")"
-LAUNCH_COMMAND="launch-tui $@"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-exec launch-or-focus "$APP_ID" "$LAUNCH_COMMAND"
+APP_ID="org.omarchy.$(basename "$1")"
+LAUNCH_COMMAND="$SCRIPT_DIR/launch-tui $@"
+
+exec "$SCRIPT_DIR/launch-or-focus" "$APP_ID" "$LAUNCH_COMMAND"

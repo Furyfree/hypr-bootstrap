@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=Wootility
+Comment=Wootility
+Exec=omarchy-launch-webapp https://wootility.io/
+Terminal=false
+Type=Application
+Icon=Wootility
+StartupNotify=true

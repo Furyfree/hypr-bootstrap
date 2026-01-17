@@ -3,5 +3,7 @@
 # Launch the wifi controls (provided by the Impala TUI).
 # Attempts to unblock the wifi service first in case it should be been blocked.
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 rfkill unblock wifi
-launch-or-focus-tui impala
+exec "$SCRIPT_DIR/launch-or-focus-tui" impala

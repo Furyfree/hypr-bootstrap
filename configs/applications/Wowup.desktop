@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=WowUp
+Comment=World of Warcraft AddOn Manager
+Exec=/home/pby/Apps/WowUp/WowUp.AppImage %U
+StartupWMClass=wowup-app
+Icon=Wowup
+Type=Application
+Categories=Game;
+MimeType=x-scheme-handler/wowup-app;

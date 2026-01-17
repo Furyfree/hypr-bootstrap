@@ -3,5 +3,7 @@
 # Launch the bluetooth controls TUI (provided by bluetui).
 # Also attempts to unblock bluetooth service if rfkill had blocked it.
 
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
 rfkill unblock bluetooth
-exec launch-or-focus-tui bluetui
+exec "$SCRIPT_DIR/launch-or-focus-tui" bluetui

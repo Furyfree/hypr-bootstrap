@@ -1,0 +1,69 @@
+@define-color window_bg_color      rgba(40, 50, 70, 0.28);   /* cold dark base + transparency */
+@define-color accent_bg_color       rgba(180, 220, 255, 0.12); /* icy blue accent */
+@define-color theme_fg_color        #e8f0ff;                  /* very pale blue-white */
+@define-color border_glow           rgba(200, 230, 255, 0.35);
+@define-color selection_bg          rgba(200, 230, 255, 0.18);
+
+/* Reset */
+* {
+  all: unset;
+  transition: all 180ms ease-out;
+}
+
+/* Main window / wrapper */
+.box-wrapper {
+  background: @window_bg_color;
+  /* The magic line — makes it feel like real frosted glass */
+  backdrop-filter: blur(16px) saturate(160%);
+  -webkit-backdrop-filter: blur(16px) saturate(160%);
+  
+  padding: 14px 16px;
+  border-radius: 16px;
+  border: 1px solid @border_glow;
+  
+  /* Optional subtle inner highlight for depth */
+  box-shadow: 
+    inset 0 1px 0 rgba(255,255,255,0.07),
+    0 8px 32px rgba(0,0,0,0.35);
+}
+
+/* Input field */
+.input {
+  background: @accent_bg_color;
+  color: @theme_fg_color;
+  caret-color: #a5d8ff;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid rgba(180, 220, 255, 0.25);
+  
+  /* Slight blur + shine on input too */
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+/* Result items */
+.item-box {
+  padding: 10px 14px;
+  border-radius: 10px;
+  margin: 3px 0;
+  color: @theme_fg_color;
+}
+
+/* Selected / highlighted item */
+child:selected .item-box,
+child:focus .item-box {
+  background: @selection_bg;
+  border: 1px solid rgba(180, 220, 255, 0.4);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 2px 12px rgba(100, 180, 255, 0.15);
+}
+
+/* Optional: very subtle noise/grain texture for extra frozen feel */
+/* You can remove this block if performance matters or it doesn't look good */
+.box-wrapper {
+  background-image:
+    radial-gradient(circle at 15% 15%, rgba(255,255,255,0.04) 1px, transparent 1px),
+    radial-gradient(circle at 85% 75%, rgba(200,230,255,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}

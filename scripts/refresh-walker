@@ -1,0 +1,5 @@
+#!/bin/bash
+
+pkill -x walker
+walker --gapplication-service &
+notify-send "Walker refreshed..." -t 3000

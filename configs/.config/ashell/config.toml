@@ -1,0 +1,70 @@
+log_level = "warn"
+outputs = { Targets = ["eDP-1"] }
+position = "Top"
+# app_launcher_cmd = "walker"
+enable_esc_key = true
+
+[modules]
+left = [ [ "Workspaces", "Updates" ] ]
+center = [ "Clock" ]
+right = [ "MediaPlayer","Tray", "Privacy", "Settings" ] 
+
+[updates]
+check_cmd = "checkupdates; paru -Qua"
+update_cmd = '$HOME/.local/bin/scripts/launch-tui bash -c "paru; echo Done - Press enter to exit; read"'
+
+[workspaces]
+visibility_mode = "All"
+enable_workspace_filling = true
+max_workspaces = 5
+workspace_names = ["1","2","3","4","5","6","7","8","9","0",]
+
+[media_player]
+max_title_length = 50
+
+# [[CustomModule]]
+# name = "appLauncher"
+# icon = "󱗼"
+# command = "walker"
+
+[window_title]
+truncate_title_after_length = 100
+
+[settings]
+lock_cmd = "playerctl --all-players pause; hyprlock &"
+audio_sinks_more_cmd = "$HOME/.local/bin/scripts/launch-audio"
+audio_sources_more_cmd = "$HOME/.local/bin/scripts/launch-audio"
+wifi_more_cmd = "$HOME/.local/bin/scripts/launch-wifi"
+vpn_more_cmd = "nm-connection-editor"
+bluetooth_more_cmd = "$HOME/.local/bin/scripts/launch-bluetooth"
+
+[appearance]
+style = "Solid" # Solid, Gradient, Island
+font_name = "JetBrainsMono Nerd Font Propo"
+scale_factor = 1
+opacity = 0.5
+success_color = "#7aa99f"
+text_color = "#d0d0d0"
+
+workspace_colors = [ "#e0e0e0ff", "#9099aa", "#a0a8b8" ]
+
+[appearance.menu]
+opacity = 0.5
+# backdrop = 0.3
+
+[appearance.primary_color]
+base = "#8892a8"
+text = "#202020"
+
+[appearance.danger_color]
+base = "#c87070"
+weak = "#d0a060"
+
+[appearance.background_color]
+base = "#1a1a1a"
+weak = "#252525"
+strong = "#353535"
+
+[appearance.secondary_color]
+base = "#0f0f0f"
+strong = "#181818"

@@ -11,8 +11,9 @@ require_sudo
 require_paru
 
 # --- Get passphrase upfront before any operations ---
-read -s -r -p "Enter current LUKS passphrase: " LUKS_PASSPHRASE
-echo
+printf "Enter current LUKS passphrase: " >/dev/tty
+read -s -r LUKS_PASSPHRASE </dev/tty
+printf "\n" >/dev/tty
 if [ -z "$LUKS_PASSPHRASE" ]; then
   die "Empty passphrase provided"
 fi

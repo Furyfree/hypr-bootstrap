@@ -19,6 +19,12 @@ if [ -z "$LUKS_PASSPHRASE" ]; then
 fi
 log "Passphrase received, proceeding with setup..."
 
+# Create temporary key file for systemd-cryptenroll
+LUKS_KEY_FILE=$(mktemp)
+chmod 600 "$LUKS_KEY_FILE"
+printf '%s' "$LUKS_PASSPHRASE" > "$LUKS_KEY_FILE"
+trap 'rm -f "$LUKS_KEY_FILE"' EXIT
+
 # Check prerequisites limine-mkinitcpio-hook limine-snapper-sync
 if ! pacman -Qi limine-mkinitcpio-hook &>/dev/null; then
   warn "limine-mkinitcpio-hook is not installed"
@@ -138,7 +144,7 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
   log "Recovery key already enrolled"
 else
   log "Creating LUKS recovery key"
-  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key | sudo tee "$RECOVERY_FILE" >/dev/null
+  sudo systemd-cryptenroll "$LUKS_DEV" --unlock-key-file="$LUKS_KEY_FILE" --recovery-key | sudo tee "$RECOVERY_FILE" >/dev/null
 
   log "Recovery key is available in $RECOVERY_FILE"
 
@@ -153,7 +159,7 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
   log "TPM2 auto-unlock already enrolled"
 else
   log "Enrolling TPM2 auto-unlock"
-  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto
+  sudo systemd-cryptenroll "$LUKS_DEV" --unlock-key-file="$LUKS_KEY_FILE" --tpm2-device=auto
 fi
 
 # --- Final rebuild ---
@@ -162,3 +168,4 @@ sudo limine-update
 
 log "FDE auto-unlock setup complete"
 unset LUKS_PASSPHRASE
+rm -f "$LUKS_KEY_FILE"

@@ -21,10 +21,15 @@ mkdir -p "$(dirname "$TARGET_DIR")"
 if [ -d "$TARGET_DIR/.git" ]; then
   log "Repo exists at $TARGET_DIR. Updating..."
   git -C "$TARGET_DIR" fetch --all --prune
+
+  # Reset to origin, discarding local changes
   if [ -n "$REF" ]; then
-    git -C "$TARGET_DIR" checkout "$REF"
+    log "Resetting to $REF..."
+    git -C "$TARGET_DIR" reset --hard "$REF"
+  else
+    log "Resetting to origin/main..."
+    git -C "$TARGET_DIR" reset --hard origin/main
   fi
-  git -C "$TARGET_DIR" pull --ff-only
 else
   if [ -e "$TARGET_DIR" ] && [ -n "$(ls -A "$TARGET_DIR" 2>/dev/null)" ]; then
     die "$TARGET_DIR exists and is not empty"

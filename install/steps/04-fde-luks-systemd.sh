@@ -131,41 +131,22 @@ read_passphrase() {
     return 0
   fi
 
-  log "Prompting for LUKS passphrase..."
-
-  # Direct read - most reliable
   local pass
-  if [ -t 0 ]; then
-    read -s -r -p "Enter current LUKS passphrase for $LUKS_DEV: " pass </dev/tty
-    echo >&2
-    if [ -z "$pass" ]; then
-      die "Empty passphrase provided"
-    fi
-    printf '%s' "$pass"
-    return 0
+  read -s -r -p "Enter current LUKS passphrase for $LUKS_DEV: " pass
+  echo
+
+  if [ -z "$pass" ]; then
+    die "Empty passphrase provided"
   fi
 
-  # Fallback to systemd-ask-password
-  if command -v systemd-ask-password &>/dev/null; then
-    pass="$(systemd-ask-password "Enter current LUKS passphrase for $LUKS_DEV:")" || die "Password prompt failed"
-    if [ -z "$pass" ]; then
-      die "Empty passphrase provided"
-    fi
-    printf '%s' "$pass"
-    return 0
-  fi
-
-  die "No interactive terminal available for passphrase input"
+  printf '%s' "$pass"
 }
 
 if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-recovery"'; then
   log "Recovery key already enrolled"
 else
   log "Creating LUKS recovery key"
-  log "You will be prompted for your LUKS passphrase..."
   PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
-
-  log "Enrolling recovery key..."
   printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password-file=- | sudo tee "$RECOVERY_FILE" >/dev/null
 
   log "Recovery key is available in $RECOVERY_FILE"
@@ -182,11 +163,8 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
 else
   log "Enrolling TPM2 auto-unlock"
   if [ -z "${PASSPHRASE:-}" ]; then
-    log "You will be prompted for your LUKS passphrase..."
     PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
   fi
-
-  log "Enrolling TPM2..."
   printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password-file=-
 fi
 

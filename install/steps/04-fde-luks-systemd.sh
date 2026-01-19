@@ -130,19 +130,41 @@ read_passphrase() {
     printf '%s' "$LUKS_PASSPHRASE"
     return 0
   fi
-  if [ ! -t 0 ]; then
-    warn "No TTY available for passphrase prompt."
-    warn "Run: sudo systemd-tty-ask-password-agent"
-    return 1
+
+  # Try systemd-ask-password first (works in most cases)
+  if command -v systemd-ask-password &>/dev/null; then
+    local pass
+    pass="$(systemd-ask-password "Enter current LUKS passphrase for $LUKS_DEV:" 2>/dev/null)" || {
+      warn "systemd-ask-password failed, trying read fallback"
+      read -s -p "Enter current LUKS passphrase for $LUKS_DEV: " pass
+      echo >&2
+    }
+    printf '%s' "$pass"
+    return 0
   fi
-  systemd-ask-password "Enter current LUKS passphrase for $LUKS_DEV:"
+
+  # Fallback to read
+  if [ -t 0 ]; then
+    local pass
+    read -s -p "Enter current LUKS passphrase for $LUKS_DEV: " pass
+    echo >&2
+    printf '%s' "$pass"
+    return 0
+  fi
+
+  die "No interactive terminal available for passphrase input"
 }
 
 if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-recovery"'; then
   log "Recovery key already enrolled"
 else
   log "Creating LUKS recovery key"
-  PASSPHRASE="$(read_passphrase)"
+  PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
+
+  if [ -z "$PASSPHRASE" ]; then
+    die "Empty passphrase provided"
+  fi
+
   printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password-file=- | sudo tee "$RECOVERY_FILE" >/dev/null
 
   log "Recovery key is available in $RECOVERY_FILE"
@@ -159,8 +181,13 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
 else
   log "Enrolling TPM2 auto-unlock"
   if [ -z "${PASSPHRASE:-}" ]; then
-    PASSPHRASE="$(read_passphrase)"
+    PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
   fi
+
+  if [ -z "$PASSPHRASE" ]; then
+    die "Empty passphrase provided"
+  fi
+
   printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password-file=-
 fi
 

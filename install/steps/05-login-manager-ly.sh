@@ -5,31 +5,21 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/common.sh
 source "$SCRIPT_DIR/../lib/common.sh"
 
-log "Setting up ly login manager..."
 require_sudo
 
-log "Disabling sddm"
-sudo systemctl disable sddm.service >/dev/null 2>&1 || true
+log "Setting up ly login manager..."
 
-log "Uninstalling sddm"
-if pacman -Qi sddm >/dev/null 2>&1; then
-    sudo pacman -Rns --noconfirm sddm
+# Check if ly is installed
+if ! pacman -Qi ly &>/dev/null; then
+    log "Installing ly..."
+    sudo pacman -S --needed --noconfirm ly
 else
-    log "sddm not installed, skipping removal"
+    log "ly is already installed."
 fi
 
-CONFIG_DIR="$REPO_ROOT/configs"
-
-if [ ! -d "$CONFIG_DIR" ]; then
-    die "configs/ directory not found in repo root"
-fi
-
-# ---- config dirs ----
-sudo mkdir -p /etc/ly
-
-# ---- Copy config files ----
-sudo cp "$CONFIG_DIR/etc/ly/config.ini" /etc/ly/
-
-# ---- Enable ly service ----
-sudo systemctl disable getty@tty2.service
+# Enable ly service on tty2
+log "Enabling ly service on tty2..."
+sudo systemctl disable getty@tty2.service 2>/dev/null || true
 sudo systemctl enable ly@tty2.service
+
+log "ly login manager setup complete!"

@@ -138,7 +138,7 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
   log "Recovery key already enrolled"
 else
   log "Creating LUKS recovery key"
-  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password-file=- | sudo tee "$RECOVERY_FILE" >/dev/null
+  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password=- | sudo tee "$RECOVERY_FILE" >/dev/null
 
   log "Recovery key is available in $RECOVERY_FILE"
 
@@ -153,7 +153,7 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
   log "TPM2 auto-unlock already enrolled"
 else
   log "Enrolling TPM2 auto-unlock"
-  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password-file=-
+  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password=-
 fi
 
 # --- Final rebuild ---

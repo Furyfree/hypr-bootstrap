@@ -7,6 +7,24 @@ source "$SCRIPT_DIR/../lib/common.sh"
 
 require_sudo
 
+# Deploy custom pacman.conf with multilib enabled
+PACMAN_CONF_SRC="$REPO_ROOT/configs/etc/pacman.conf"
+
+if [[ ! -f "$PACMAN_CONF_SRC" ]]; then
+    die "Custom pacman.conf not found at: $PACMAN_CONF_SRC"
+fi
+
+if [[ ! -f /etc/pacman.conf ]]; then
+    warn "System pacman.conf not found at /etc/pacman.conf"
+else
+    log "Backing up existing pacman.conf..."
+    sudo cp /etc/pacman.conf "/etc/pacman.conf.bak.$(date +%s)" || die "Failed to backup pacman.conf"
+fi
+
+log "Deploying custom pacman.conf with multilib enabled..."
+sudo cp "$PACMAN_CONF_SRC" /etc/pacman.conf || die "Failed to deploy pacman.conf"
+log "pacman.conf deployed successfully."
+
 # Check if the rust package itself is installed and remove it (avoid rustup provides)
 if pacman -Qq rust 2>/dev/null | grep -qx "rust"; then
     log "Removing rust via pacman..."
@@ -67,10 +85,13 @@ sudo pacman-key --lsign-key 3056513887B78AEB
 sudo pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-keyring.pkg.tar.zst'
 sudo pacman -U --noconfirm --needed 'https://cdn-mirror.chaotic.cx/chaotic-aur/chaotic-mirrorlist.pkg.tar.zst'
 
-# Add Chaotic-AUR to pacman.conf
+# Add Chaotic-AUR to pacman.conf (append if not present)
 if ! grep -q '^\[chaotic-aur\]' /etc/pacman.conf; then
+    log "Adding Chaotic-AUR repository to pacman.conf..."
+    echo "" | sudo tee -a /etc/pacman.conf >/dev/null
     echo "[chaotic-aur]" | sudo tee -a /etc/pacman.conf >/dev/null
     echo "Include = /etc/pacman.d/chaotic-mirrorlist" | sudo tee -a /etc/pacman.conf >/dev/null
+    log "Chaotic-AUR repository added."
 else
     log "Chaotic-AUR already configured, skipping pacman.conf update."
 fi

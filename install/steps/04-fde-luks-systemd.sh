@@ -10,6 +10,14 @@ log "Setting up auto unlock of FDE with systemd"
 require_sudo
 require_paru
 
+# --- Get passphrase upfront before any operations ---
+read -s -r -p "Enter current LUKS passphrase: " LUKS_PASSPHRASE
+echo
+if [ -z "$LUKS_PASSPHRASE" ]; then
+  die "Empty passphrase provided"
+fi
+log "Passphrase received, proceeding with setup..."
+
 # Check prerequisites limine-mkinitcpio-hook limine-snapper-sync
 if ! pacman -Qi limine-mkinitcpio-hook &>/dev/null; then
   warn "limine-mkinitcpio-hook is not installed"
@@ -125,29 +133,11 @@ fi
 # --- Create and store recovery key (idempotent) ---
 RECOVERY_FILE="/root/luks-recovery-key.txt"
 
-read_passphrase() {
-  if [ -n "${LUKS_PASSPHRASE:-}" ]; then
-    printf '%s' "$LUKS_PASSPHRASE"
-    return 0
-  fi
-
-  local pass
-  read -s -r -p "Enter current LUKS passphrase for $LUKS_DEV: " pass
-  echo
-
-  if [ -z "$pass" ]; then
-    die "Empty passphrase provided"
-  fi
-
-  printf '%s' "$pass"
-}
-
 if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-recovery"'; then
   log "Recovery key already enrolled"
 else
   log "Creating LUKS recovery key"
-  PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
-  printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password-file=- | sudo tee "$RECOVERY_FILE" >/dev/null
+  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --recovery-key --password-file=- | sudo tee "$RECOVERY_FILE" >/dev/null
 
   log "Recovery key is available in $RECOVERY_FILE"
 
@@ -162,10 +152,7 @@ if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[
   log "TPM2 auto-unlock already enrolled"
 else
   log "Enrolling TPM2 auto-unlock"
-  if [ -z "${PASSPHRASE:-}" ]; then
-    PASSPHRASE="$(read_passphrase)" || die "Failed to read passphrase"
-  fi
-  printf '%s\n' "$PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password-file=-
+  printf '%s\n' "$LUKS_PASSPHRASE" | sudo systemd-cryptenroll "$LUKS_DEV" --tpm2-device=auto --password-file=-
 fi
 
 # --- Final rebuild ---
@@ -173,4 +160,4 @@ log "Updating bootloader and initramfs"
 sudo limine-update
 
 log "FDE auto-unlock setup complete"
-unset PASSPHRASE
+unset LUKS_PASSPHRASE

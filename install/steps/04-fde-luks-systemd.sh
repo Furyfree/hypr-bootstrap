@@ -5,10 +5,72 @@ SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck source=../lib/common.sh
 source "$SCRIPT_DIR/../lib/common.sh"
 
-log "Setting up auto unlock of FDE with systemd"
-
 require_sudo
 require_paru
+
+log "Checking FDE auto-unlock setup..."
+
+# --- Determine root mapper ---
+ROOT_SRC="$(findmnt -n -o SOURCE /)"
+MAPPER_NAME="$(echo "$ROOT_SRC" | sed 's|^/dev/mapper/||; s|\[.*||')"
+
+if [ -z "$MAPPER_NAME" ]; then
+  die "Could not determine root mapper"
+fi
+
+if ! sudo cryptsetup status "$MAPPER_NAME" >/dev/null 2>&1; then
+  log "Root is not a LUKS mapper. Skipping FDE setup."
+  exit 0
+fi
+
+log "Root mapper: $MAPPER_NAME"
+
+# --- Resolve underlying LUKS device (authoritative) ---
+LUKS_DEV="$(sudo cryptsetup status "$MAPPER_NAME" | awk '/device:/ {print $2}')"
+
+if [ -z "$LUKS_DEV" ]; then
+  die "Could not resolve LUKS device for root"
+fi
+
+log "Underlying LUKS device: $LUKS_DEV"
+
+# --- Verify LUKS2 ---
+if ! sudo cryptsetup luksDump "$LUKS_DEV" | head -n 5 | grep -q "Version:[[:space:]]*2"; then
+  die "$LUKS_DEV is not LUKS2"
+fi
+
+# --- Check if already enrolled ---
+HAS_RECOVERY=false
+HAS_TPM2=false
+
+if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-recovery"'; then
+  HAS_RECOVERY=true
+fi
+
+if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-tpm2"'; then
+  HAS_TPM2=true
+fi
+
+if [ "$HAS_RECOVERY" = true ] && [ "$HAS_TPM2" = true ]; then
+  log "TPM2 auto-unlock and recovery key already enrolled. Skipping FDE setup."
+  exit 0
+fi
+
+if [ "$HAS_RECOVERY" = true ]; then
+  log "Recovery key already enrolled."
+fi
+
+if [ "$HAS_TPM2" = true ]; then
+  log "TPM2 auto-unlock already enrolled."
+fi
+
+# --- TPM presence check ---
+if [ ! -e /dev/tpmrm0 ] && [ ! -e /dev/tpm0 ]; then
+  warn "No TPM device found. Skipping TPM auto-unlock setup."
+  exit 0
+fi
+
+log "Setting up FDE auto-unlock with systemd..."
 
 # --- Get passphrase upfront before any operations ---
 printf "Enter current LUKS passphrase: " >/dev/tty
@@ -33,39 +95,6 @@ fi
 if ! pacman -Qi limine-snapper-sync &>/dev/null; then
   warn "limine-snapper-sync is not installed"
   paru -S --noconfirm --needed limine-snapper-sync
-fi
-
-# --- TPM presence check ---
-if [ ! -e /dev/tpmrm0 ] && [ ! -e /dev/tpm0 ]; then
-  die "No TPM device found"
-fi
-
-# --- Determine root mapper ---
-ROOT_SRC="$(findmnt -n -o SOURCE /)"
-MAPPER_NAME="$(echo "$ROOT_SRC" | sed 's|^/dev/mapper/||; s|\[.*||')"
-
-if [ -z "$MAPPER_NAME" ]; then
-  die "Could not determine root mapper"
-fi
-
-if ! sudo cryptsetup status "$MAPPER_NAME" >/dev/null 2>&1; then
-  die "Root is not a LUKS mapper"
-fi
-
-log "Root mapper: $MAPPER_NAME"
-
-# --- Resolve underlying LUKS device (authoritative) ---
-LUKS_DEV="$(sudo cryptsetup status "$MAPPER_NAME" | awk '/device:/ {print $2}')"
-
-if [ -z "$LUKS_DEV" ]; then
-  die "Could not resolve LUKS device for root"
-fi
-
-log "Underlying LUKS device: $LUKS_DEV"
-
-# --- Verify LUKS2 ---
-if ! sudo cryptsetup luksDump "$LUKS_DEV" | head -n 5 | grep -q "Version:[[:space:]]*2"; then
-  die "$LUKS_DEV is not LUKS2"
 fi
 
 # --- Get LUKS UUID ---
@@ -140,9 +169,7 @@ fi
 # --- Create and store recovery key (idempotent) ---
 RECOVERY_FILE="/root/luks-recovery-key.txt"
 
-if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-recovery"'; then
-  log "Recovery key already enrolled"
-else
+if [ "$HAS_RECOVERY" = false ]; then
   log "Creating LUKS recovery key"
   sudo systemd-cryptenroll "$LUKS_DEV" --unlock-key-file="$LUKS_KEY_FILE" --recovery-key | sudo tee "$RECOVERY_FILE" >/dev/null
 
@@ -155,9 +182,7 @@ else
 fi
 
 # --- Enroll TPM2 auto-unlock (idempotent) ---
-if sudo cryptsetup luksDump --dump-json-metadata "$LUKS_DEV" | grep -q '"type"[[:space:]]*:[[:space:]]*"systemd-tpm2"'; then
-  log "TPM2 auto-unlock already enrolled"
-else
+if [ "$HAS_TPM2" = false ]; then
   log "Enrolling TPM2 auto-unlock"
   sudo systemd-cryptenroll "$LUKS_DEV" --unlock-key-file="$LUKS_KEY_FILE" --tpm2-device=auto
 fi

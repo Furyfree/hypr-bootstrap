@@ -29,6 +29,7 @@ waybar
 # ====================
 papirus-icon-theme
 ttf-jetbrains-mono-nerd
+ttf-jetbrains-mono
 matugen
 gnome-themes-extra
 woff2-font-awesome
@@ -51,6 +52,7 @@ seahorse
 # ====================
 # Shell & CLI
 # ====================
+ghostty
 starship
 zsh
 zoxide

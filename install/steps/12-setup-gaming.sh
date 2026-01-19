@@ -20,6 +20,7 @@ GAMING_PKGS=(
     lib32-gamemode
     mangohud
     lib32-mangohud
+    python-vdf
 )
 
 sudo pacman -S --needed --noconfirm "${GAMING_PKGS[@]}"

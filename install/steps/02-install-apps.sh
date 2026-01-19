@@ -45,10 +45,6 @@ if [ -n "$ZINIT_PKG" ]; then
     paru -S --noconfirm --needed "$ZINIT_PKG"
 fi
 
-log "Installing AUR-only deps first..."
-paru -S --aur --noconfirm --needed python-vdf
-paru -S --aur --noconfirm --needed faugus-launcher
-
 if [ "${#filtered_packages[@]}" -gt 0 ]; then
     paru -S --noconfirm --needed "${filtered_packages[@]}"
 fi

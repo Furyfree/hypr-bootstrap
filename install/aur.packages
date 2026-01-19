@@ -52,11 +52,6 @@ helium-browser-bin
 chromium-widevine
 
 # ====================
-# Communication
-# ====================
-discord-webapp
-
-# ====================
 # Media & Graphics
 # ====================
 pinta
@@ -66,12 +61,6 @@ pinta
 # ====================
 limine-mkinitcpio-hook
 limine-snapper-sync
-
-# ====================
-# Gaming
-# ====================
-faugus-launcher
-minecraft-launcher
 
 # ====================
 # Utilities

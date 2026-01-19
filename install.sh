@@ -16,6 +16,7 @@ steps=(
   "$STEPS_DIR/09-setup-apps.sh"
   "$STEPS_DIR/10-launcher-elephant.sh"
   "$STEPS_DIR/11-setup-monitors.sh"
+  "$STEPS_DIR/12-setup-gaming.sh"
 )
 
 echo "=== Starting Hyprland Bootstrap Installation ==="

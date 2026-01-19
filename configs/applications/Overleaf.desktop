@@ -2,7 +2,7 @@
 Version=1.0
 Name=Overleaf
 Comment=Overleaf Latex Writing
-Exec=omarchy-launch-webapp https://www.overleaf.com/project
+Exec=launch-webapp https://www.overleaf.com/project
 Terminal=false
 Type=Application
 Icon=Overleaf

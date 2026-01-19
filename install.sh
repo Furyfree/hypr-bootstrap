@@ -1,57 +1,35 @@
-#!/bin/bash
-
-# Main installation script for Hyprland bootstrap
-# Run this from the repo root
-
+#!/usr/bin/env bash
 set -euo pipefail
 
-REPO_ROOT=$(pwd)
+REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+STEPS_DIR="$REPO_ROOT/install/steps"
+
+steps=(
+  "$STEPS_DIR/01-paru-and-chaotic.sh"
+  "$STEPS_DIR/02-install-apps.sh"
+  "$STEPS_DIR/03-graphics-drivers.sh"
+  "$STEPS_DIR/04-fde-luks-systemd.sh"
+  "$STEPS_DIR/05-login-manager-ly.sh"
+  "$STEPS_DIR/06-install-configs.sh"
+  "$STEPS_DIR/07-code-oss.sh"
+  "$STEPS_DIR/08-setup-scripts.sh"
+  "$STEPS_DIR/09-setup-apps.sh"
+  "$STEPS_DIR/10-launcher-elephant.sh"
+  "$STEPS_DIR/11-setup-monitors.sh"
+)
 
 echo "=== Starting Hyprland Bootstrap Installation ==="
-echo
 
-echo "Step 1: Setting up AUR helper (paru)..."
-source "$REPO_ROOT/installation/pre-hyprland/setup-aur.sh"
-echo
+for step in "${steps[@]}"; do
+  if [ ! -f "$step" ]; then
+    echo "ERROR: missing step $step" >&2
+    exit 1
+  fi
+  echo
+  echo "==> Running $(basename "$step")"
+  bash "$step"
+done
 
-echo "Step 2: Setting up Chaotic AUR..."
-source "$REPO_ROOT/installation/pre-hyprland/setup-chaotic-aur.sh"
-echo
-
-echo "Step 3: Installing packages..."
-source "$REPO_ROOT/installation/pre-hyprland/install-packages.sh"
-echo
-
-echo "Step 4: Setting up auto-unlock FDE..."
-source "$REPO_ROOT/installation/pre-hyprland/setup-autounlock-fde.sh"
-echo
-
-echo "Step 5: Setting up login manager (regreet)..."
-source "$REPO_ROOT/installation/pre-hyprland/setup-login-manager-regreet.sh"
-echo
-
-echo "Step 6: Installing graphics drivers..."
-source "$REPO_ROOT/installation/hyprland/install-graphics-drivers.sh"
-echo
-
-echo "Step 7: Installing config files..."
-source "$REPO_ROOT/installation/hyprland/install-configs.sh"
-echo
-
-echo "Step 8: Setting up VS Code OSS..."
-source "$REPO_ROOT/installation/hyprland/code-oss.sh"
-echo
-
-echo "Step 9: Setting up Elephant launcher..."
-source "$REPO_ROOT/installation/hyprland/launcher/elephant.sh"
-echo
-
-echo "Step 10: Setting up Walker launcher..."
-source "$REPO_ROOT/installation/hyprland/launcher/walker.sh"
-echo
-
-echo "Step 11: Setting up monitor services..."
-source "$REPO_ROOT/installation/hyprland/setup-monitors.sh"
 echo
 
 echo "=== Installation Complete ==="

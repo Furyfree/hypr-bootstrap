@@ -1,0 +1,15 @@
+xdg-mime query default application/zip
+org.gnome.Nautilus.desktop
+
+opencode
+
+ls systemd/user
+ graphical-session.target.wants   timers.target.wants   elephant.service   omarchy-battery-monitor.service   omarchy-battery-monitor.timer
+
+~/.config
+❯ ls systemd/user/graphical-session.target.wants
+ elephant.service
+
+~/.config
+❯ ls systemd/user/timers.target.wants
+ omarchy-battery-monitor.timer

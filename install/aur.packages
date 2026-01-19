@@ -1,0 +1,79 @@
+# ====================
+# Launchers & Providers
+# ====================
+walker
+elephant
+elephant-calc
+elephant-clipboard
+elephant-desktopapplications
+elephant-files
+elephant-menus
+elephant-providerlist
+elephant-symbols
+elephant-websearch
+hyprdynamicmonitors-bin
+
+# ====================
+# Theming
+# ====================
+apple-fonts
+apple_cursor
+awww-git
+
+# ====================
+# Authentication
+# ====================
+1password
+1password-cli
+
+# ====================
+# Shell
+# ====================
+zinit
+
+# ====================
+# Terminal Integration
+# ====================
+xdg-terminal-exec-git
+
+# ====================
+# Editors & IDEs
+# ====================
+cursor-bin
+code-marketplace
+code-features
+jetbrains-toolbox
+icu69-bin
+
+# ====================
+# Browsers
+# ====================
+helium-browser-bin
+chromium-widevine
+
+# ====================
+# Communication
+# ====================
+discord-webapp
+
+# ====================
+# Media & Graphics
+# ====================
+pinta
+
+# ====================
+# Boot & FDE Helpers
+# ====================
+limine-mkinitcpio-hook
+limine-snapper-sync
+
+# ====================
+# Gaming
+# ====================
+faugus-launcher
+minecraft-launcher
+
+# ====================
+# Utilities
+# ====================
+wayfreeze-git

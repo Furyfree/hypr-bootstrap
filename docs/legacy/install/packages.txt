@@ -1,0 +1,210 @@
+# ====================
+# Hyprland & Wayland
+# ====================
+hyprland
+xdg-desktop-portal-hyprland
+hypridle
+hyprlock
+hyprpicker
+hyprsunset
+uwsm
+brightnessctl
+wl-clipboard
+
+# ====================
+# Login Manager
+# ====================
+ly
+terminus-font
+
+# ====================
+# Bar, Launcher & Notifications
+# ====================
+swaync
+swayosd
+waybar
+walker
+elephant
+elephant-calc
+elephant-clipboard
+elephant-desktopapplications
+elephant-files
+elephant-menus
+elephant-providerlist
+elephant-symbols
+elephant-websearch
+
+# ====================
+# Theming
+# ====================
+papirus-icon-theme
+apple-fonts
+apple_cursor
+ttf-jetbrains-mono-nerd
+matugen
+awww-git
+gnome-themes-extra
+woff2-font-awesome
+
+# ====================
+# GTK & Qt
+# ====================
+qt5-wayland
+qt6-wayland
+kvantum
+kvantum-qt5
+xdg-desktop-portal-gtk
+
+
+# ====================
+# Authentication
+# ====================
+polkit-gnome
+seahorse
+1password
+1password-cli
+
+# ====================
+# Terminal & Shell
+# ====================
+starship
+zsh
+zinit
+zoxide
+fzf
+
+# ====================
+# CLI Tools
+# ====================
+btop
+fastfetch
+neovim
+vim
+yazi
+lazygit
+lazydocker
+fd
+duf
+dust
+ripgrep
+bat
+tldr
+curlie
+httpie
+bandwhich
+github-cli
+tree
+eza
+tokei
+xdg-terminal-exec-git
+
+# ====================
+# File Management
+# ====================
+nautilus
+nautilus-image-converter
+sushi
+libnautilus-extension
+udiskie
+tumbler
+ffmpegthumbnailer
+gvfs
+unrar
+7zip
+p7zip
+zip
+unzip
+
+# ====================
+# Editors & IDEs
+# ====================
+cursor-bin
+zed
+code
+code-marketplace
+chaotic-aur/jetbrains-toolbox
+
+# VScode
+code
+code-marketplace
+code-features
+icu69-bin
+
+# ====================
+# Browsers
+# ====================
+chaotic-aur/helium-browser-bin
+chaotic-aur/chromium-widevine
+
+# ====================
+# Communication
+# ====================
+discord-webapp
+signal-desktop
+
+# ====================
+# Media
+# ====================
+mpv
+imv
+spotify-launcher
+obs-studio
+kdenlive
+pinta
+gimp
+
+# ====================
+# Productivity
+# ====================
+obsidian
+drawio-desktop
+baobab
+
+# ====================
+# Development
+# ====================
+docker
+docker-compose
+base-devel
+gcc
+clang
+tk
+
+# ====================
+# Network & Bluetooth
+# ====================
+networkmanager
+network-manager-applet
+iwd
+impala
+wiremix
+bluetui
+
+# ====================
+# System
+# ====================
+xdg-user-dirs
+xdg-utils
+pacman-contrib
+limine-mkinitcpio-hook
+limine-snapper-sync
+
+# ====================
+# Gaming
+# ====================
+steam
+chaotic-aur/faugus-launcher
+chaotic-aur/minecraft-launcher
+# Battlenet
+# World of Warcraft
+# WagoApp
+# Wowup
+
+# ====================
+# Screenshot / Screenrecording
+# ====================
+grim
+slurp
+satty
+wayfreeze-git
+jq

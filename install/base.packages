@@ -1,0 +1,162 @@
+# ====================
+# Hyprland & Wayland
+# ====================
+hyprland
+xdg-desktop-portal-hyprland
+hypridle
+hyprlock
+hyprpicker
+hyprsunset
+uwsm
+brightnessctl
+wl-clipboard
+
+# ====================
+# Login Manager
+# ====================
+ly
+terminus-font
+
+# ====================
+# Bar & Notifications
+# ====================
+swaync
+swayosd
+waybar
+
+# ====================
+# Theming
+# ====================
+papirus-icon-theme
+ttf-jetbrains-mono-nerd
+matugen
+gnome-themes-extra
+woff2-font-awesome
+
+# ====================
+# GTK & Qt
+# ====================
+qt5-wayland
+qt6-wayland
+kvantum
+kvantum-qt5
+xdg-desktop-portal-gtk
+
+# ====================
+# Authentication
+# ====================
+polkit-gnome
+seahorse
+
+# ====================
+# Shell & CLI
+# ====================
+starship
+zsh
+zoxide
+fzf
+btop
+fastfetch
+neovim
+vim
+yazi
+lazygit
+lazydocker
+fd
+duf
+dust
+ripgrep
+bat
+tldr
+curlie
+httpie
+bandwhich
+github-cli
+tree
+eza
+tokei
+jq
+
+# ====================
+# File Management
+# ====================
+nautilus
+nautilus-image-converter
+sushi
+libnautilus-extension
+udiskie
+tumbler
+ffmpegthumbnailer
+gvfs
+unrar
+7zip
+p7zip
+zip
+unzip
+
+# ====================
+# Editors & IDEs
+# ====================
+zed
+code
+
+# ====================
+# Communication
+# ====================
+signal-desktop
+
+# ====================
+# Media
+# ====================
+mpv
+imv
+spotify-launcher
+obs-studio
+kdenlive
+gimp
+
+# ====================
+# Productivity
+# ====================
+obsidian
+drawio-desktop
+baobab
+
+# ====================
+# Development
+# ====================
+docker
+docker-compose
+base-devel
+gcc
+clang
+tk
+
+# ====================
+# Network & Bluetooth
+# ====================
+networkmanager
+network-manager-applet
+iwd
+impala
+wiremix
+bluetui
+
+# ====================
+# System
+# ====================
+xdg-user-dirs
+xdg-utils
+pacman-contrib
+
+# ====================
+# Gaming
+# ====================
+steam
+
+# ====================
+# Screenshot / Screenrecording
+# ====================
+grim
+slurp
+satty

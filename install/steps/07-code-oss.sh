@@ -12,9 +12,4 @@ if pacman -Qi code-features &>/dev/null; then
     sudo code-features-update --system
 fi
 
-if pacman -Qi code-marketplace &>/dev/null; then
-    log "Updating code-marketplace patch..."
-    sudo code-marketplace-update --system
-fi
-
 log "Setup complete. Restart VS Code, then install GitHub Copilot extensions and sign in."

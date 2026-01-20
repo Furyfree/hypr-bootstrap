@@ -1,39 +1,34 @@
 // config.jsonc
 // -*- mode: jsonc -*-
 {
-    "include": [
-        "~/.config/waybar/modules/modules.jsonc",
-        "~/.config/waybar/modules/custom-modules.jsonc",
-    ],
-    
-    // "layer": "top", // Waybar at top layer
-    // "position": "bottom", // Waybar position (top|bottom|left|right)
-    "height": 32, // Waybar height (to be removed for auto height)
-    // "width": 1280, // Waybar width
-    "spacing": 4, // Gaps between modules (4px)
-    "modules-center": [
-        // "custom/spotify",                 // mpris – music, far left, expands when playing
-        // "custom/pacman",                // updates – shows only ≥1, click to update, right-click refresh
-        // "custom/vpn",                   // vpn – always faint icon, colored when on, click toggle
-        // "custom/weather",               // weather – icon + temp, always visible
-        "clock",                        // day + time (Sun 11:02), click → date + week
-        "hyprland/workspaces",          // absolute center, states (pink current, red urgent, whiter occupied)
-        "pulseaudio",                   // or wireplumber – audio, click Wiremix TUI, right-click mute
-        "network",                      // click Impala, right-click nm-applet
-        "bluetooth",                    // click Bluetui TUI
-        "battery",                      // % + icon, charging shift, low red
-        "power-profiles-daemon",        // icon cycle (leaf/balance/bolt), click cycle + Hypridle
-        "custom/notification",          // swaync – click open center, right-click DND/mute
-        "group/tray-expander"
-        // "tray"                          // far right, expands rightward
-    ],
-    
+  "include": [
+    "~/.config/waybar/modules/modules.jsonc",
+    "~/.config/waybar/modules/custom-modules.jsonc",
+  ],
 
-    "modules-left": [
-        
-    ],
+  // "layer": "top", // Waybar at top layer
+  // "position": "bottom", // Waybar position (top|bottom|left|right)
+  "height": 32, // Waybar height (to be removed for auto height)
+  // "width": 1280, // Waybar width
+  "spacing": 4, // Gaps between modules (4px)
+  "modules-center": [
+    // "custom/spotify",                 // mpris – music, far left, expands when playing
+    // "custom/pacman",                // updates – shows only ≥1, click to update, right-click refresh
+    // "custom/vpn",                   // vpn – always faint icon, colored when on, click toggle
+    // "custom/weather",               // weather – icon + temp, always visible
+    "clock", // day + time (Sun 11:02), click → date + week
+    "hyprland/workspaces", // absolute center, states (pink current, red urgent, whiter occupied)
+    "pulseaudio", // or wireplumber – audio, click Wiremix TUI, right-click mute
+    "network", // click Impala, right-click nm-applet
+    "bluetooth", // click Bluetui TUI
+    "battery", // % + icon, charging shift, low red
+    "power-profiles-daemon", // icon cycle (leaf/balance/bolt), click cycle + Hypridle
+    "custom/notification", // swaync – click open center, right-click DND/mute
+    "group/tray-expander",
+    // "tray"                          // far right, expands rightward
+  ],
 
-    "modules-right": [
-    ],
+  "modules-left": [],
 
+  "modules-right": [],
 }

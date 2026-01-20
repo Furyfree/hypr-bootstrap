@@ -29,4 +29,23 @@ else
   log "Hyprland not running. Cursor settings will apply on next session."
 fi
 
-log "Theming and fonts setup complete!"
+# Copy backgrounds
+BACKGROUNDS_SRC="$REPO_ROOT/configs/backgrounds"
+BACKGROUNDS_DST="$HOME/.local/share/backgrounds"
+
+mkdir -p "$BACKGROUNDS_DST"
+
+if [ -d "$BACKGROUNDS_SRC" ]; then
+  log "Copying background images..."
+  # Copy each file individually
+  for bg_file in "$BACKGROUNDS_SRC"/*; do
+    if [ -f "$bg_file" ]; then
+      cp "$bg_file" "$BACKGROUNDS_DST/"
+      log "Copied $(basename "$bg_file")"
+    fi
+  done
+else
+  warn "Backgrounds directory not found at $BACKGROUNDS_SRC"
+fi
+
+log "Theming setup complete!"

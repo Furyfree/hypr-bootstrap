@@ -1,0 +1,59 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+BACKGROUND_DIR="$HOME/.local/share/backgrounds"
+STATE_FILE="$BACKGROUND_DIR/.current_index"
+
+# Create backgrounds directory if it doesn't exist
+mkdir -p "$BACKGROUND_DIR"
+
+# Get list of all image files in backgrounds directory
+mapfile -t BACKGROUNDS < <(find "$BACKGROUND_DIR" -maxdepth 1 -type f \( -iname "*.jpg" -o -iname "*.jpeg" -o -iname "*.png" -o -iname "*.webp" \) ! -name "current.*" | sort)
+
+# Check if there are any backgrounds
+if [ ${#BACKGROUNDS[@]} -eq 0 ]; then
+    echo "No background images found in $BACKGROUND_DIR"
+    echo "Add images (.jpg, .png, .webp) to this directory"
+    exit 1
+fi
+
+# Read current index, default to 0
+CURRENT_INDEX=0
+if [ -f "$STATE_FILE" ]; then
+    CURRENT_INDEX=$(cat "$STATE_FILE")
+fi
+
+# Get next index (wrap around)
+NEXT_INDEX=$(( (CURRENT_INDEX + 1) % ${#BACKGROUNDS[@]} ))
+
+# Get the next background file
+NEXT_BG="${BACKGROUNDS[$NEXT_INDEX]}"
+EXTENSION="${NEXT_BG##*.}"
+
+# Remove any existing current.* files
+rm -f "$BACKGROUND_DIR"/current.*
+
+# Copy the next background as current.extension
+cp "$NEXT_BG" "$BACKGROUND_DIR/current.$EXTENSION"
+
+# Save the new index
+echo "$NEXT_INDEX" > "$STATE_FILE"
+
+echo "Background changed to: $(basename "$NEXT_BG")"
+echo "Copied to: $BACKGROUND_DIR/current.$EXTENSION"
+
+# Generate color scheme with matugen
+if command -v matugen &>/dev/null; then
+    echo "Generating color scheme with matugen..."
+    matugen image "$BACKGROUND_DIR/current.$EXTENSION" 2>/dev/null || echo "matugen failed, continuing..."
+else
+    echo "matugen not found, skipping color scheme generation"
+fi
+
+# Set wallpaper with awww
+if command -v awww &>/dev/null; then
+    echo "Setting wallpaper with awww..."
+    awww img "$BACKGROUND_DIR/current.$EXTENSION" 2>/dev/null || echo "awww failed, continuing..."
+else
+    echo "awww not found, skipping wallpaper setting"
+fi

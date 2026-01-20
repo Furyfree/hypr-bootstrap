@@ -17,7 +17,7 @@ steps=(
   "$STEPS_DIR/10-launcher-elephant.sh"
   "$STEPS_DIR/11-setup-monitors.sh"
   "$STEPS_DIR/12-setup-gaming.sh"
-  "$STEPS_DIR/13-set-theming-fonts.sh"
+  "$STEPS_DIR/13-set-theming.sh"
   "$STEPS_DIR/14-setup-dev-env.sh"
 )
 

@@ -2,7 +2,7 @@
 Version=1.0
 Name=Discord
 Comment=Discord
-Exec=launch-webapp https://discord.com/channels/@me
+Exec=hdk-launch-webapp https://discord.com/channels/@me
 Terminal=false
 Type=Application
 Icon=Discord

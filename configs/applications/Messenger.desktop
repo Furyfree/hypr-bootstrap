@@ -2,7 +2,7 @@
 Version=1.0
 Name=Messenger
 Comment=Messenger
-Exec=launch-webapp https://www.messenger.com/
+Exec=hdk-launch-webapp https://www.messenger.com/
 Terminal=false
 Type=Application
 Icon=Messenger

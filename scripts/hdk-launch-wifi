@@ -6,4 +6,4 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 rfkill unblock wifi
-exec "$SCRIPT_DIR/launch-or-focus-tui" impala
+exec "$SCRIPT_DIR/hdk-launch-or-focus-tui" impala

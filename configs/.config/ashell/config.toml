@@ -7,11 +7,11 @@ enable_esc_key = true
 [modules]
 left = [ [ "Workspaces", "Updates" ] ]
 center = [ "Clock" ]
-right = [ "MediaPlayer","Tray", "Privacy", "Settings" ] 
+right = [ "MediaPlayer","Tray", "Privacy", "Settings" ]
 
 [updates]
 check_cmd = "checkupdates; paru -Qua"
-update_cmd = '$HOME/.local/bin/scripts/launch-tui bash -c "paru; echo Done - Press enter to exit; read"'
+update_cmd = '$HOME/.local/bin/scripts/hdk-launch-tui bash -c "paru; echo Done - Press enter to exit; read"'
 
 [workspaces]
 visibility_mode = "All"
@@ -32,11 +32,11 @@ truncate_title_after_length = 100
 
 [settings]
 lock_cmd = "playerctl --all-players pause; hyprlock &"
-audio_sinks_more_cmd = "$HOME/.local/bin/scripts/launch-audio"
-audio_sources_more_cmd = "$HOME/.local/bin/scripts/launch-audio"
-wifi_more_cmd = "$HOME/.local/bin/scripts/launch-wifi"
+audio_sinks_more_cmd = "$HOME/.local/bin/scripts/hdk-launch-audio"
+audio_sources_more_cmd = "$HOME/.local/bin/scripts/hdk-launch-audio"
+wifi_more_cmd = "$HOME/.local/bin/scripts/hdk-launch-wifi"
 vpn_more_cmd = "nm-connection-editor"
-bluetooth_more_cmd = "$HOME/.local/bin/scripts/launch-bluetooth"
+bluetooth_more_cmd = "$HOME/.local/bin/scripts/hdk-launch-bluetooth"
 
 [appearance]
 style = "Solid" # Solid, Gradient, Island

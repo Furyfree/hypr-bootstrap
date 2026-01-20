@@ -6,6 +6,6 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 APP_ID="org.omarchy.$(basename "$1")"
-LAUNCH_COMMAND="$SCRIPT_DIR/launch-tui $@"
+LAUNCH_COMMAND="$SCRIPT_DIR/hdk-launch-tui $@"
 
-exec "$SCRIPT_DIR/launch-or-focus" "$APP_ID" "$LAUNCH_COMMAND"
+exec "$SCRIPT_DIR/hdk-launch-or-focus" "$APP_ID" "$LAUNCH_COMMAND"

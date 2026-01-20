@@ -2,7 +2,7 @@
 Version=1.0
 Name=Wootility
 Comment=Wootility
-Exec=launch-webapp https://wootility.io/
+Exec=hdk-launch-webapp https://wootility.io/
 Terminal=false
 Type=Application
 Icon=Wootility

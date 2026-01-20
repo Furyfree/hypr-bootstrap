@@ -20,6 +20,7 @@ require_sudo
 
 mapfile -t packages < <(grep -Ev '^\s*(#|$)' "$BASE")
 sudo pacman -S --noconfirm --needed "${packages[@]}"
+echo "${packages[@]}"
 
 # Install all AUR packages
 require_paru
@@ -43,8 +44,10 @@ ZINIT_PKG="${ZINIT_PKG:-zinit}"
 if [ -n "$ZINIT_PKG" ]; then
     log "Installing zinit provider: $ZINIT_PKG"
     paru -S --noconfirm --needed "$ZINIT_PKG"
+    echo "$ZINIT_PKG"
 fi
 
 if [ "${#filtered_packages[@]}" -gt 0 ]; then
     paru -S --noconfirm --needed "${filtered_packages[@]}"
+    echo "${filtered_packages[@]}"
 fi
